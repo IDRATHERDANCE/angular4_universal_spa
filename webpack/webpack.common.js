@@ -38,6 +38,6 @@ module.exports = {
       cssProcessorOptions: { discardComments: {removeAll: true } },
       canPrint: true
     }),
-    new webpack.optimize.UglifyJsPlugin({sourceMap: true, mangle: { keep_fnames: true }})
+    new webpack.optimize.UglifyJsPlugin({sourceMap: true, mangle: { keep_fnames: true }, output: {comments: false}})
   ]
 };

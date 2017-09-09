@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "start": "webpack --env.aot --env.client -p & webpack --env.aot --env.server",
-    "start:old": "npm run build && npm run server",
+    "start:alt": "webpack --env.aot --env.client -p & webpack --env.aot --env.server",
+    "start": "npm run build && npm run server",
     "build": "webpack",
     "build:aot": "webpack --env.aot --env.client & webpack --env.aot --env.server",
     "build:prod": "webpack --env.aot --env.client -p & webpack --env.aot --env.server",
