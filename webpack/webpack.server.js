@@ -13,9 +13,11 @@ module.exports = {
     'server': './src/main.server.ts'
   },
   output : {
+    // path: root('dist'),
+    // filename: '[name].[hash].js',
+    // chunkFilename: '[id].[hash].chunk.js'
     path: root('dist'),
-    filename: '[name].[hash].js',
-    chunkFilename: '[id].[hash].chunk.js'
+    filename: 'server.js',
   },
   target: 'node'
 };

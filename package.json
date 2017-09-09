@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "start:alt": "webpack --env.aot --env.client -p & webpack --env.aot --env.server",
-    "start": "npm run build && npm run server",
+    "start": "webpack --env.aot --env.client -p & webpack --env.aot --env.server",
+    "start:alt": "npm run build && npm run server",
     "build": "webpack",
     "build:aot": "webpack --env.aot --env.client & webpack --env.aot --env.server",
     "build:prod": "webpack --env.aot --env.client -p & webpack --env.aot --env.server",
@@ -12,7 +12,7 @@
     "prebuild:aot": "npm run clean",
     "prebuild:prod": "npm run clean",
     "clean": "rimraf dist",
-    "server": "nodemon dist/server*.js",
+    "server": "nodemon dist/server.js",
     "watch": "webpack --watch",
     "clean:all": "rimraf dist && rimraf node_modules"
   },
