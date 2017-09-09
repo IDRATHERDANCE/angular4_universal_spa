@@ -1,8 +1,5 @@
 const { root } = require('./helpers');
-
-const { AotPlugin } = require('@ngtools/webpack');
 const nodeExternals = require('webpack-node-externals');
-
 /**
  * This is a server config which should be merged on top of common config
  */
@@ -12,9 +9,13 @@ module.exports = {
       whitelist: [/@angular/, /@ng/]
     })
   ],
-  entry: root('./src/main.server.ts'),
-  output: {
-    filename: 'server.js'
+  entry : {
+    'server': './src/main.server.ts'
+  },
+  output : {
+    path: root('dist'),
+    filename: '[name].[hash].js',
+    chunkFilename: '[id].[hash].chunk.js'
   },
   target: 'node'
 };

@@ -1,11 +1,14 @@
 const { root } = require('./helpers');
-var CopyWebpackPlugin = require('copy-webpack-plugin');
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const webpack = require('webpack');
+const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+
 /**
  * This is a common webpack config which is the base for all builds
  */
 module.exports = {
-  devtool: 'source-map',
+  // devtool: 'source-map',
   resolve: {
     extensions: ['.ts', '.js', '.json', '.css', '.scss', '.html']
   },
@@ -29,6 +32,12 @@ module.exports = {
     new CopyWebpackPlugin([{
       from: root('src/public')
     }]),
-    new ExtractTextPlugin({filename: 'css/[name].[hash].css'})
+    new ExtractTextPlugin({filename: 'css/[name].[hash].css'}),
+    new OptimizeCssAssetsPlugin({
+      cssProcessor: require('cssnano'),
+      cssProcessorOptions: { discardComments: {removeAll: true } },
+      canPrint: true
+    }),
+    new webpack.optimize.UglifyJsPlugin({sourceMap: true, mangle: { keep_fnames: true }})
   ]
 };

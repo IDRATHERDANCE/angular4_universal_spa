@@ -59,7 +59,7 @@ private _iframeAndDown: boolean = false;
 private _window = this.platform.isServer() ? this._w.window : window;
 
 // host listeners have to go before constructor    
-@HostListener('window:keydown', ['$event']) onKeyDown(event: KeyboardEvent) {
+@HostListener('window:keydown', ['$event']) onKeyDown(event: any) {
 
     const keyCodeNumber = event.keyCode;
 

@@ -36,7 +36,6 @@ const knownRoutes =  [
 '/contact' 
 ];
 
-
 knownRoutes.forEach((route) => { 
 
   app.get(route, (req: Request, res: Response) => { 
