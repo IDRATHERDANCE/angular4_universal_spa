@@ -13,7 +13,7 @@
     "prebuild:aot": "npm run clean",
     "prebuild:prod": "npm run clean",
     "clean": "rimraf dist",
-    "server": "nodemon dist/server.js",
+    "server": "nodemon dist/server*.js",
     "watch": "webpack --watch",
     "clean:all": "rimraf dist && rimraf node_modules"
   },
@@ -74,8 +74,8 @@
   },
   "devDependencies": {},
   "engines": {
-    "node": "6.2.2",
-    "npm": "3.9.5"
+    "node": "6.11.3",
+    "npm": "3.10.10"
   },
   "description": "Angular4 Universal project",
   "main": "karma-shim.js",

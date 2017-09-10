@@ -60,8 +60,8 @@ getDataFromService(url, server, callback?, seoCallback?) {
         .subscribe(response => {         
                 if (server) {
                     this._cache.set(url, response);
-                    global['initialState'] = InitialSate;
-                    global['initialState'].applicationData.routeData[url] = response;
+                    // global['initialState'] = InitialSate;
+                    // global['initialState'].applicationData.routeData[url] = response;
                     seoCallback(response);
                 } else {
                     callback(response); 
