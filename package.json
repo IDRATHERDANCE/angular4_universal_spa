@@ -13,7 +13,7 @@
     "prebuild:aot": "npm run clean",
     "prebuild:prod": "npm run clean",
     "clean": "rimraf dist",
-    "server": "nodemon dist/server.js",
+    "server": "node --optimize_for_size --max_old_space_size=460 --gc_interval=100 dist/server.js",
     "watch": "webpack --watch",
     "clean:all": "rimraf dist && rimraf node_modules"
   },
