@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "start": "webpack --env.aot --env.client -p & webpack --env.aot --env.server",
+    "start": "webpack --env.aot --env.client -p & webpack --env.aot --env.server --optimize_for_size --max_old_space_size=460 --gc_interval=100",
     "start:alt": "npm run build && npm run server",
     "build": "webpack",
     "build:aot": "webpack --env.aot --env.client & webpack --env.aot --env.server",
