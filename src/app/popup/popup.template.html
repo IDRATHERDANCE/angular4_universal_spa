@@ -5,7 +5,7 @@
  <div class="popBackground"></div>  
 
 <div class="newsPopup notVisible" [ngClass]="cssCH.hiddenElClasse(this)" *ngIf="!!newsText">
-    <div  *ngIf="!!newsText" class="news_pop_text_main" 
+    <!-- <div  *ngIf="!!newsText" class="news_pop_text_main" 
         columns
         [innerHtml]="newsText" 
         [coulmnsData]="coulmnsData" 
@@ -15,7 +15,7 @@
         (portWider)="portWider($event)" 
         (portraitNewsPhotos)="portraitNewsPhotos($event)"
         (tooTallBox)="tooTallBox($event)" 
-        ></div>
+        ></div> -->
 </div> 
 
 <div class="popUpWrap" (click)="clickBox($event)" [ngClass]="{'posAbso': wrapPos}" [hidden]="cssCH.whenIsHidden(this)" >

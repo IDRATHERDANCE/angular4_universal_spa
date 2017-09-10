@@ -16,13 +16,13 @@
                     </div>
                 </div>
                
-                <div *ngIf="i === 0" class="newsTextWrap  notVisibleNonPop" columns [coulmnsData]="coulmnsData" (columsClasses)="columsClasses($event)" [ngClass]="{'down': down}">
+                <!-- <div *ngIf="i === 0" class="newsTextWrap  notVisibleNonPop" columns [coulmnsData]="coulmnsData" (columsClasses)="columsClasses($event)" [ngClass]="{'down': down}">
                     <div  class="news_pop_text_main">
                         <h1 class="newsh1"  [ngClass]="{'firstH1': i === 0}">{{item.title}}</h1>
                         <h2>{{item.acf.news_short_description}}</h2>
                         <p *ngIf="!!item.content"  [innerHTML]='item.content | StyleRemove'></p>
                     </div>
-                </div>
+                </div> -->
 
                 <h1 class="newsSmallTitle newsh1" *ngIf="i > 0">{{item.title.slice(0, 20)}}</h1>
 
