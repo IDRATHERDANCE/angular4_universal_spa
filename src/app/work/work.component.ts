@@ -60,6 +60,7 @@ export class WorkComponent implements OnInit, AfterViewInit {
 
     populateResponse(response) {
         this.data = response;
+        this._common.setMenu(response);
     }
 
     ngAfterViewInit() {

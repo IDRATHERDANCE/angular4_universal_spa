@@ -70,6 +70,7 @@ private _url: string = 'work';
             this.carousel = resObj.carousel;
             this.firstPhoto = resObj.firstPhoto;
             this.wholeContent = resObj.wholeContent;
+            this._common.setMenu(response);
     }   
 
     formatResponse(res) {

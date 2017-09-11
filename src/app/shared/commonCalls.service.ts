@@ -39,20 +39,21 @@ calls(url, reduxData, callback, seoCallback?) {
                     callback(response); 
                 } else {
                     let resData = this._cache.get(url); 
-                    if (resData) {
+                    if (resData) { 
                         callback(resData); 
                         this.actions.dataChange(resData, url); 
-                        if (url === 'work') { 
-                            const menuArray = resData.map(item => this._prepObj.formateTitle(item));
-                                this.actions.menuChange(menuArray);
-                                this.actions.menuPresent(true);
-                        }
                     } else {
                         this.getDataFromService(url, false, callback);
                     }
                 }
         });
     }
+}
+
+setMenu(resData) {
+    const menuArray = resData.map(item => this._prepObj.formateTitle(item));
+        this.actions.menuChange(menuArray);
+        this.actions.menuPresent(true);
 }
 
 getDataFromService(url, server, callback?, seoCallback?) {
