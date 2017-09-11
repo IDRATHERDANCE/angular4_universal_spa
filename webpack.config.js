@@ -25,14 +25,10 @@ module.exports = function (options, webpackOptions) {
     ]
   });
 
-  if (webpackOptions.p) {
-    clientConfig = webpackMerge({}, clientConfig, prodPartial);
-  }
-
   const configs = [];
   if (!options.aot) {
     // configs.push(clientConfig, serverConfig);
-    configs.push(serverConfig);
+    configs.push(clientConfig);
 
 
   } else if (options.client) {
