@@ -45,8 +45,6 @@ private _subMenuArray: Array<string>;
     const middleware = [  /* createLogger() */ ];
 
    let checkEnh = this.platform.isServer() ? [] : enhancers;
-  //  let checkState = global['initialState'] || InitialState;
-
 
     this.ngRedux.configureStore(reducer, InitialState, middleware, checkEnh); 
   

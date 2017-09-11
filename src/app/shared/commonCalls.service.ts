@@ -10,7 +10,7 @@ import { PlatformService } from '../shared/platform.service';
 import { PrepareObj } from '../shared/prepareObjects.service';
 
 import { TransferState } from '../../modules/transfer-state/transfer-state';
-import  InitialSate  from '../../store/initial.state';
+
 
 
 
@@ -60,8 +60,6 @@ getDataFromService(url, server, callback?, seoCallback?) {
         .subscribe(response => {         
                 if (server) {
                     this._cache.set(url, response);
-                    // global['initialState'] = InitialSate;
-                    // global['initialState'].applicationData.routeData[url] = response;
                     seoCallback(response);
                 } else {
                     callback(response); 
