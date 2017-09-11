@@ -75,7 +75,7 @@
   "devDependencies": {},
   "engines": {
     "node": "8.4.0",
-    "npm": "5.3.0"
+    "npm": "5.4.1"
   },
   "description": "Angular4 Universal project",
   "main": "karma-shim.js",

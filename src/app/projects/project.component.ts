@@ -54,6 +54,7 @@ private _url: string = 'work';
         private _metaService: MetaService) {}
 
     ngOnInit() {
+        this.headline = this.sub = '';
         this.route.params.subscribe(params => this._routeSegment = params['project']);
         this._common.calls(this._url, this.workData$, 
             response => this.populateResponse(response),
