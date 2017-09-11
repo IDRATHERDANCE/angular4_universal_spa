@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "postinstall": "npm run clean && webpack --env.aot --env.server",
-    "start": "webpack --env.aot --env.client",
+    "postinstall": "npm run clean && webpack --env.aot --env.server && webpack --env.aot --env.client",
+    "start": "node dist/server*.js",
     "start:alt": "webpack --env.aot --env.client -p & webpack --env.aot --env.server",
     "start:altb": "npm run build && npm run server",
     "build": "webpack",
