@@ -33,6 +33,7 @@ module.exports = function (options, webpackOptions) {
   if (!options.aot) {
     // configs.push(clientConfig, serverConfig);
     configs.push(clientConfig);
+    
 
   } else if (options.client) {
     configs.push(clientConfig);
