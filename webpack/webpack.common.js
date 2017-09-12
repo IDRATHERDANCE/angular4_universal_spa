@@ -3,7 +3,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const webpack = require('webpack');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
-const CompressionPlugin = require("compression-webpack-plugin");
+// const CompressionPlugin = require("compression-webpack-plugin");
 
 /**
  * This is a common webpack config which is the base for all builds
@@ -40,12 +40,12 @@ module.exports = {
       canPrint: true
     }),
     new webpack.optimize.UglifyJsPlugin({sourceMap: true, mangle: { keep_fnames: true }, output: {comments: false}}),
-    new CompressionPlugin({
-      asset: "[path].gz[query]",
-      algorithm: "gzip",
-      test: /\.(js|html)$/,
-      threshold: 10240,
-      minRatio: 0.8
-  })
+  //   new CompressionPlugin({
+  //     asset: "[path].gz[query]",
+  //     algorithm: "gzip",
+  //     test: /\.(js|html)$/,
+  //     threshold: 10240,
+  //     minRatio: 0.8
+  // })
   ]
 };

@@ -7,10 +7,13 @@ import { platformServer, renderModuleFactory } from '@angular/platform-server';
 import { ServerAppModule } from './app/server-app.module';
 import { ngExpressEngine } from '@nguniversal/express-engine';
 import { enableProdMode } from '@angular/core';
+import * as compression from 'compression';
+
 enableProdMode();
 const app = express();
 const port = process.env.PORT || 7000;
 const baseUrl = `http://localhost:${port}`;
+
 
 app.engine('html', ngExpressEngine({
   bootstrap: ServerAppModule
@@ -20,6 +23,8 @@ app.set('view engine', 'html');
 app.set('views', 'src');
 
 app.use('/', express.static('dist', {index: false}));
+app.use(compression());
+
 
 
 const knownRoutes =  [ 
