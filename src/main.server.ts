@@ -8,10 +8,6 @@ import { ServerAppModule } from './app/server-app.module';
 import { ngExpressEngine } from '@nguniversal/express-engine';
 import { enableProdMode } from '@angular/core';
 import * as compression from 'compression';
-import * as expressStaticGzip from 'express-static-gzip';
-
-
-
 
 enableProdMode();
 const app = express();
@@ -25,13 +21,8 @@ app.engine('html', ngExpressEngine({
 
 app.set('view engine', 'html');
 app.set('views', 'src');
-
 app.use('/', express.static('dist', {index: false}));
-
 app.use(compression());
-// app.use(compression({threshold:0, filter:function(){return true;}}));
-// app.use('/', expressStaticGzip('dist', { indexFromEmptyFile: false }));
-
 
 
 const knownRoutes =  [ 

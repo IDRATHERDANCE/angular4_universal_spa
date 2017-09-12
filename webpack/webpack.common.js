@@ -39,13 +39,6 @@ module.exports = {
       cssProcessorOptions: { discardComments: {removeAll: true } },
       canPrint: true
     }),
-    // new webpack.optimize.UglifyJsPlugin({sourceMap: true, mangle: { keep_fnames: true }, output: {comments: false}}),
-  //   new CompressionPlugin({
-  //     asset: "[path].gz[query]",
-  //     algorithm: "gzip",
-  //     test: /\.(js|html)$/,
-  //     threshold: 10240,
-  //     minRatio: 0.8
-  // })
+    new webpack.optimize.UglifyJsPlugin({sourceMap: true, mangle: { keep_fnames: true }, output: {comments: false}})
   ]
 };
