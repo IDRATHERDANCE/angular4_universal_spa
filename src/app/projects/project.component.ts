@@ -117,10 +117,10 @@ private _url: string = 'work';
                 if ((item.indexOf('work_main_photo') === - 1) && (item.indexOf('work_short_description') === - 1) 
                     && (metaInside[item])) {
                       all.push({
-                        photo: {
+                            photo: {
                                 url: metaInside[item].url,
                                 aspect: metaInside[item].width / metaInside[item].height
-                                }
+                            }
                         });
                     }
                     return all;

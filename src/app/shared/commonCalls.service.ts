@@ -12,8 +12,6 @@ import { PrepareObj } from '../shared/prepareObjects.service';
 import { TransferState } from '../../modules/transfer-state/transfer-state';
 
 
-
-
 @Injectable()
 
 export class CommonCalls {
