@@ -45,7 +45,7 @@ app.set('views', 'src');
 
 app.use('/', express.static('dist', {index: false}));
 
-app.use(compression());
+// app.use(compression());
 // app.use('/', expressStaticGzip('dist'));
 
 // app.use(gzippo.staticGzip('dist'));
