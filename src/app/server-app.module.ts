@@ -5,7 +5,7 @@ import { AppComponent } from './app.component';
 import { AppModule } from './app.module';
 import { TransferState } from '../modules/transfer-state/transfer-state';
 import { BrowserModule } from '@angular/platform-browser';
-import { BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 export function onBootstrap(appRef: ApplicationRef, transferState: TransferState) {
   return () => {

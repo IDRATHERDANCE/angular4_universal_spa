@@ -9,7 +9,6 @@ import { CarouselComponent } from '../carousel/carousel.directive';
 import { workRoutes } from './work.routing';
 import { SubMenuPipe } from '../shared/subMenu.pipe';
 
-SubMenuPipe
 
 @NgModule({
   imports: [
