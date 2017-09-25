@@ -1,4 +1,4 @@
-import { Component, OnInit, HostBinding, Renderer2, AfterViewInit } from '@angular/core';
+import { Component, OnInit, Renderer2, AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { select } from '@angular-redux/store';
@@ -18,12 +18,11 @@ import { HeadMetaInterface } from '../shared/headMeta.interface';
         templateUrl: './press.template.html',
         styleUrls: ['../exhibitions/exhi-press.component.scss'],
         animations: [routerAnimation()],
-        host: {'[@routeAnimation]': ''}
+        host: {'[@routeAnimation]': 'true'},
+        changeDetection: ChangeDetectionStrategy.OnPush
         })
 
 export class PressComponent implements OnInit, AfterViewInit {
-
-  @HostBinding('class') class = 'animation';
   
   @select(['applicationData', 'routeData', 'press']) pressData$: Observable<any>;
 
@@ -43,7 +42,8 @@ constructor (
     private _renderer: Renderer2,
     private _common: CommonCalls,
     public platform: PlatformService,
-    private _metaService: MetaService) {}
+    private _metaService: MetaService,
+    private _changeDetectorRef: ChangeDetectorRef) {}
 
 
     ngOnInit() {
@@ -59,6 +59,8 @@ constructor (
     }
 
     populateResponse(response) {
+        this._changeDetectorRef.markForCheck();
+        
         const lookForResize = (() => {
             this.data = this._resizeWindow.dataTrimmed(response)
         });

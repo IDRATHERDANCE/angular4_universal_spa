@@ -1,4 +1,4 @@
-import { Component, OnInit, HostBinding, Renderer2, AfterViewInit } from '@angular/core';
+import { Component, OnInit, Renderer2, AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 
 import { TopService } from '../shared/top.service';
 
@@ -17,12 +17,11 @@ import { PrepareMeta } from '../shared/prepare.meta.service';
         templateUrl: './contact.template.html',
         styleUrls: ['./contact.component.scss'],
         animations: [routerAnimation()],
-        host: {'[@routeAnimation]': ''}
+        host: {'[@routeAnimation]': 'true'},
+        changeDetection: ChangeDetectionStrategy.OnPush
         })
 
 export class ContactComponent implements OnInit, AfterViewInit {
-
-    @HostBinding('class') class = 'animation';
 
     @select(['applicationData', 'routeData', 'contact']) contactData$: Observable<any>;
 
@@ -35,7 +34,8 @@ constructor (
     private _common: CommonCalls,
     public platform: PlatformService,
     private _metaService: MetaService,
-    private _format: PrepareMeta) {}
+    private _format: PrepareMeta,
+    private _changeDetectorRef: ChangeDetectorRef) {}
 
     ngOnInit() { 
         this._common.calls(this._url, this.contactData$, 
@@ -49,6 +49,7 @@ constructor (
     }
 
     populateResponse(response) {
+        this._changeDetectorRef.markForCheck();
         const resObj = this.formatResponse(response);
         this.data = response[0].content;
     }

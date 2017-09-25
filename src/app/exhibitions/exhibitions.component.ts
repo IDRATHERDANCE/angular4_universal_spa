@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, HostBinding, Renderer2, AfterViewInit, ViewChild, ViewContainerRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, Renderer2, AfterViewInit, ViewChild, ViewContainerRef, ChangeDetectionStrategy, ChangeDetectorRef  } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { select } from '@angular-redux/store';
@@ -18,14 +18,12 @@ import { HeadMetaInterface } from '../shared/headMeta.interface';
         templateUrl: './exhibitions.template.html',
         styleUrls: ['./exhi-press.component.scss'],
         animations: [routerAnimation()],
-        host: {'[@routeAnimation]': ''}
+        host: {'[@routeAnimation]': 'true'},
+        changeDetection: ChangeDetectionStrategy.OnPush
         })
 
 
 export class ExhibitionsComponent implements OnInit, AfterViewInit {
-
-
-  @HostBinding('class') class = 'animation';
   
   @select(['applicationData', 'routeData', 'exhibitions']) exhibitionsData$: Observable<any>;
 
@@ -43,7 +41,8 @@ constructor (
     private _renderer: Renderer2,
     private _common: CommonCalls,
     public platform: PlatformService,
-    private _metaService: MetaService) {}
+    private _metaService: MetaService,
+    private _changeDetectorRef: ChangeDetectorRef) {}
 
     ngOnInit() {
 
@@ -58,6 +57,8 @@ constructor (
     }
 
     populateResponse(response) { 
+        this._changeDetectorRef.markForCheck();
+        
         const lookForResize = (() => {
             this.data = this._resizeWindow.dataTrimmed(response)
         });

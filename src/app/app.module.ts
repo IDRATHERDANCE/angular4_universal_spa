@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
-import { BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 
 import { AppComponent } from './app.component';
@@ -34,7 +33,6 @@ import { SubMenuPrettyPipe } from './shared/submenuPretty.pipe';
     BrowserModule,
     HttpModule,
     NgReduxModule,
-    BrowserAnimationsModule,
     RouterModule.forRoot([
       { path: '', loadChildren: './splash/splash.module#SplashModule'},
       { path: 'work', loadChildren: './work/work.module#WorkModule'},

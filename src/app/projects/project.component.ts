@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, HostBinding, ViewContainerRef, ViewChild, Renderer2, AfterViewInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewContainerRef, ViewChild, Renderer2, AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef  } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Meta } from '@angular/platform-browser';
 
@@ -19,12 +19,12 @@ import { HeadMetaInterface } from '../shared/headMeta.interface';
         templateUrl: './project.template.html',
         styleUrls: ['./project.component.scss'],
         animations: [routerAnimation()],
-        host: {'[@routeAnimation]': ''}
+        host: {'[@routeAnimation]': 'true'},
+        changeDetection: ChangeDetectionStrategy.OnPush
         })
 
 export class ProjectComponent implements OnInit, AfterViewInit {
 
-    @HostBinding('class') class = 'animation';
     @select(['applicationData', 'routeData', 'work']) workData$: Observable<any>;
     @ViewChild('mainImage', { read: ViewContainerRef })
     @ViewChild('textBox', { read: ViewContainerRef })
@@ -51,7 +51,8 @@ private _url: string = 'work';
         private _meta: Meta,
         private _common: CommonCalls,
         public platform: PlatformService,
-        private _metaService: MetaService) {}
+        private _metaService: MetaService,
+        private _changeDetectorRef: ChangeDetectorRef) {}
 
     ngOnInit() {
         this.headline = this.sub = '';
@@ -63,6 +64,8 @@ private _url: string = 'work';
     }
 
     populateResponse(response) {
+        this._changeDetectorRef.markForCheck();
+
         const resObj = this.formatResponse(response);
             this.headline = resObj.headline;
             this.sub = resObj.sub;

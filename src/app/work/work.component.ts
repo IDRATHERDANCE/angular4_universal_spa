@@ -1,4 +1,4 @@
-import { Component, OnInit, HostBinding, Renderer2, AfterViewInit } from '@angular/core';
+import { Component, OnInit, Renderer2, AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 
 import { select } from '@angular-redux/store';
 import { Observable } from 'rxjs/Observable';
@@ -17,12 +17,11 @@ import { HeadMetaInterface } from '../shared/headMeta.interface';
         templateUrl: './work.component.html',
         styleUrls: ['./work.component.scss'],
         animations: [routerAnimation()],
-        host: {'[@routeAnimation]': ''}
+        host: {'[@routeAnimation]': 'true'},
+        changeDetection: ChangeDetectionStrategy.OnPush
         })
 
 export class WorkComponent implements OnInit, AfterViewInit {
-
-  @HostBinding('class') class = 'animation';
   
   @select(['applicationData', 'routeData', 'work']) workData$: Observable<any>;
 
@@ -36,7 +35,8 @@ export class WorkComponent implements OnInit, AfterViewInit {
     private _renderer: Renderer2,
     private _common: CommonCalls,
     public platform: PlatformService,
-    private _metaService: MetaService) {}
+    private _metaService: MetaService,
+    private _changeDetectorRef: ChangeDetectorRef) {}
 
     ngOnInit() { 
         this._common.calls(this._url, this.workData$,
@@ -59,6 +59,8 @@ export class WorkComponent implements OnInit, AfterViewInit {
     }
 
     populateResponse(response) {
+        this._changeDetectorRef.markForCheck();
+        
         this.data = response;
         this._common.setMenu(response);
     }

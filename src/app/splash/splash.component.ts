@@ -1,4 +1,4 @@
-import { Component, OnInit,  HostBinding } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 
 import { select } from '@angular-redux/store';
 import { Observable } from 'rxjs/Observable';
@@ -15,14 +15,11 @@ import { HeadMetaInterface } from '../shared/headMeta.interface';
         templateUrl: './splash.template.html',
         styleUrls: ['./splash.component.scss'],
         animations: [routerAnimation()],
-        host: {'[@routeAnimation]': ''}
+        host: {'[@routeAnimation]': 'true'},
+        changeDetection: ChangeDetectionStrategy.OnPush
         })
 
 export class SplashComponent implements OnInit {
-
-
-  @HostBinding('class') class = 'animation';
-
   
   @select(['applicationData', 'routeData', 'splash']) splashData$: Observable<any>;
 
@@ -34,7 +31,8 @@ private _url: string = 'splash';
 constructor (
     private _common: CommonCalls,
     public platform: PlatformService,
-    private _metaService: MetaService) {}
+    private _metaService: MetaService,
+    private _changeDetectorRef: ChangeDetectorRef) {}
 
     ngOnInit() {
         this._common.calls(this._url, this.splashData$, 
@@ -44,6 +42,7 @@ constructor (
     }
 
     populateResponse(response) {
+        this._changeDetectorRef.markForCheck();
 
         const resObj = this.formatResponse(response);
 

@@ -1,4 +1,4 @@
-    <header *ngIf="isItSplashValue" class="header" [@fadeInAni]="true"  [ngClass]="{'smallerIndex': _popIsUpFlag}">
+    <header *ngIf="isItSplashValue" class="header" [@fadeInAni]="isItWorkValue && _haveSubmenuFlag"  [ngClass]="{'smallerIndex': _popIsUpFlag}">
 
         <a [routerLink]="['/']" target="_self">
             <div class="logo_shell" >

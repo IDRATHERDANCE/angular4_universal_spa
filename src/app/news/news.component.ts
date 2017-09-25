@@ -1,5 +1,5 @@
 
-import { Component, OnInit, HostBinding, Renderer2, AfterViewInit } from '@angular/core';
+import { Component, OnInit, Renderer2, AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { select } from '@angular-redux/store';
 import { Observable } from 'rxjs/Observable';
@@ -19,17 +19,14 @@ import { HeadMetaInterface } from '../shared/headMeta.interface';
         templateUrl: './news.template.html',
         styleUrls: ['./news.component.scss'],
         animations: [routerAnimation()],
-        host: {'[@routeAnimation]': ''}
+        host: {'[@routeAnimation]': 'true'},
+        changeDetection: ChangeDetectionStrategy.OnPush
         })
 
 
 export class NewsComponent implements OnInit, AfterViewInit {
 
-
-  @HostBinding('class') class = 'animation';
-
   @select(['applicationData', 'routeData', 'news']) newsData$: Observable<any>;
-
 
 public data: Object;
 private wholeContent: Object;
@@ -47,7 +44,8 @@ constructor (
     private _renderer: Renderer2,
     private _common: CommonCalls,
     public platform: PlatformService,
-    private _metaService: MetaService) {}
+    private _metaService: MetaService,
+    private _changeDetectorRef: ChangeDetectorRef) {}
 
     ngOnInit() {
         this.route.params.subscribe(params => this._routeSegment = params['single']);
@@ -59,6 +57,8 @@ constructor (
     }
 
     populateResponse(response) {
+        this._changeDetectorRef.markForCheck();
+        
         const lookForResize = (() => {
             this.data = this._resizeWindow.dataTrimmed(response)
         });

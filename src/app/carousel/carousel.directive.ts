@@ -4,7 +4,7 @@ import { Component, Input, EventEmitter, Output, OnChanges, ChangeDetectionStrat
     selector: 'carousel-directive',
     templateUrl: './carousel.directive.html',
     styleUrls: ['./carousel.directive.scss'],
-        changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush
    })
 
 export class CarouselComponent implements OnChanges {
