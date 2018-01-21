@@ -6,7 +6,7 @@ const serverPartial = require('./webpack/webpack.server');
 const prodPartial = require('./webpack/webpack.prod');
 const { getAotPlugin } = require('./webpack/webpack.aot');
 
-module.exports = function (options, webpackOptions) { 
+module.exports = function (options) { 
   options = options || {};
 
   if (options.aot) {
