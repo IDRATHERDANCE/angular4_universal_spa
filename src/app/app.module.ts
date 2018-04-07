@@ -13,6 +13,7 @@ import { NgReduxModule, DevToolsExtension } from '@angular-redux/store';
 import { DataActions } from '../actions/data-actions';
 
 import { SubMenuComponent } from './submenu/subMenu.component';
+import { MenuComponent } from './menu/menu.component';
 
 import { HttpgetService } from './shared/httpget.service';
 import { TopService } from './shared/top.service';
@@ -46,6 +47,7 @@ import { SubMenuPrettyPipe } from './shared/submenuPretty.pipe';
   declarations: [
     AppComponent,
     SubMenuComponent,
+    MenuComponent,
     SubMenuPrettyPipe
   ],
   providers: [

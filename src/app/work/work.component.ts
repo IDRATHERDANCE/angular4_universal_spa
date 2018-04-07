@@ -45,7 +45,7 @@ export class WorkComponent implements OnInit, AfterViewInit {
         );
     }
 
-    createSeoHeader(seoResponse) {
+    createSeoHeader(seoResponse) { 
         const metaObj: HeadMetaInterface = {
               title: 'Ana Rajecvic - Work',
               description: 'Body of work by the artist Ana Rajecvic',

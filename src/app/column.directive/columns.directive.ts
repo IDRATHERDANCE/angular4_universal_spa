@@ -83,7 +83,7 @@ constructor (
             const aspect = this.coulmnsData.width / this.coulmnsData.height;
 
 
-        if (aspect <= 1) { this.portraitNewsPhotos.emit(true); } else { this.portraitNewsPhotos.emit(false); }
+        if (aspect < 1) { this.portraitNewsPhotos.emit(true); } else { this.portraitNewsPhotos.emit(false); }
 
       const windowWidth = this._window.innerWidth,
             windowHeight = this._window.innerHeight,

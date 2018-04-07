@@ -66,9 +66,7 @@
 }
 
 .news_image {  
-    @include aspect-ratio(1, 1.41621621621621);    
-    margin-bottom: 1.6rem;
-    overflow: hidden; 
+    @include thumbAndText();
 } 
 
 .newsh1 {

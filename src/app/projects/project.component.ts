@@ -121,7 +121,7 @@ private _url: string = 'work';
                     && (metaInside[item])) {
                       all.push({
                             photo: {
-                                url: metaInside[item].url,
+                                url: metaInside[item].url || metaInside[item].thumbnail_url_with_play_button,
                                 aspect: metaInside[item].width / metaInside[item].height
                             }
                         });

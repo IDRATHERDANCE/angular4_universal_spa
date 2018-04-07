@@ -21,10 +21,9 @@ constructor(private http: Http) {}
                 locString = 'type=page&filter[pagename]=';
         }
 
-        return this.http.get(`https://idrather.dance/ana_backend/wordpress/wp-json/posts?${locString}${locationPath}`)
+        return this.http.get(`http://anarajcevic.com/wordpress/wp-json/posts?${locString}${locationPath}`)
                 .map(response => response.json());
 
         }
-
     }
 }
