@@ -25,7 +25,7 @@ export class MenuComponent implements OnChanges {
 
     constructor(public topService: TopService) {}
 
-    ngOnChanges() {
+    ngOnChanges() { console.log('here', this.topService.isFirefox())
       const fire = this.topService.isFirefox();
       const subs = this.subMenuArray.length;
       const calcHeight = fire ? (subs + 1) * 1.5 : subs * 1.5;
