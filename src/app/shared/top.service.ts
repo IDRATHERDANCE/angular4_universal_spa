@@ -21,4 +21,10 @@ constructor(@Inject(DOCUMENT) private _document, public platform: PlatformServic
 
     }
 
+    isFirefox() {
+        if (!window) return false;
+        const ua = window.navigator.userAgent.toLowerCase();
+        return /firefox/i.test(ua);
+      }
+
 }

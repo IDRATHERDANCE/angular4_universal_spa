@@ -9,12 +9,12 @@
          <li class="menu_comp_li"><a class="menu_comp_a" [routerLink]="['/work']">work</a></li>
               <submenu 
                 class="submenu"
-                [ngStyle]="{'max-height': isItWorkValue && haveSubmenuFlag ? subMenuArray.length * 1.5 + 'rem' : '0rem'}"
+                [ngStyle]="{'max-height': maxHeight}"
                 [isItWork]="isItWorkValue" 
                 [menuData]="subMenuArray" 
                 [ngClass]="{subMenuShow: isItWorkValue && haveSubmenuFlag }"
              ></submenu> 
-         <div class="restMenu" [ngStyle]="{'top': isItWorkValue && haveSubmenuFlag ? (subMenuArray.length * 1.5) + 1.5 + 'rem' : '1.3rem'}">
+         <div class="restMenu" [ngStyle]="{'top': top}">
              <li class="menu_comp_li"><a class="menu_comp_a" [routerLink]="['/news']">news</a></li>
              <li class="menu_comp_li"><a class="menu_comp_a" [routerLink]="['/exhibitions']">exhibitions</a></li>
              <li class="menu_comp_li"><a class="menu_comp_a" [routerLink]="['/press']">press</a></li>

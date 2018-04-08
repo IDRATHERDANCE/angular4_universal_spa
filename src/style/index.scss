@@ -82,8 +82,8 @@ h3 p {
 
 .content {
     position: absolute; 
-    width: 90%; 
-    left: 5%; 
+    width: 100%; 
+    padding: 0 2.5%;
     margin-bottom: 4rem;
     background: transparent;
     min-width: 35rem;
@@ -99,6 +99,7 @@ h3 p {
             left:16.5%;
             height:100%;
             width:82.2%;
+            padding: 0;
             margin-left: 3.08rem;
             max-width: 120rem;
             z-index:1;    
