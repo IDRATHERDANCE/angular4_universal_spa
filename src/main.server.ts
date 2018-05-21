@@ -11,7 +11,7 @@ import * as compression from 'compression';
 
 enableProdMode();
 const app = express();
-const port = process.env.PORT || 7000;
+const port = process.env.PORT || 3000;
 const baseUrl = `http://localhost:${port}`;
 
 app.use(compression());
@@ -24,7 +24,6 @@ app.set('view engine', 'html');
 app.set('views', 'src');
 
 app.use('/', express.static('dist', {index: false}));
-
 
 const knownRoutes =  [ 
 '/',
@@ -48,6 +47,6 @@ knownRoutes.forEach((route) => {
   });
 });
 
-app.listen(port, () => {
+app.listen(3000, () => {
 	console.log(`Listening at ${baseUrl}`);
 });

@@ -14,7 +14,7 @@ import { fadeIn } from '../shared/fadeIn.animation';
 
 export class MenuComponent implements OnChanges {
 
-    @Input() subMenuArray: Array<Object>;
+    @Input() subMenuArray: Array<string>;
     @Input() popIsUpFlag: boolean;
     @Input() isItSplashValue: boolean;
     @Input() isItWorkValue: boolean;
@@ -25,9 +25,9 @@ export class MenuComponent implements OnChanges {
 
     constructor(public topService: TopService) {}
 
-    ngOnChanges() { console.log('here', this.topService.isFirefox())
+    ngOnChanges() {
       const fire = this.topService.isFirefox();
-      const subs = this.subMenuArray.length;
+      const subs = this.subMenuArray ? this.subMenuArray.length : 5;
       const calcHeight = fire ? (subs + 1) * 1.5 : subs * 1.5;
       const upOrDown = this.isItWorkValue && this.haveSubmenuFlag;
       this.maxHeight = upOrDown ? calcHeight + 'rem' : '0rem';

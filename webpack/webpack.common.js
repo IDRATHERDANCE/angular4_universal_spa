@@ -8,7 +8,7 @@ const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
  * This is a common webpack config which is the base for all builds
  */
 module.exports = {
-  // devtool: 'source-map',
+  devtool: 'source-map',
   resolve: {
     extensions: ['.ts', '.js', '.json', '.css', '.scss', '.html']
   },

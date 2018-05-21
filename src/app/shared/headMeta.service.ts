@@ -33,7 +33,7 @@ constructor(
 
         this._meta.updateTag({ name: 'og:title', content: metaObj.title });
         this._meta.updateTag({ name: 'og:type', content: metaObj.type });
-        this._meta.updateTag({ name: 'og:url', content: `https://pacific-badlands-81642.herokuapp.com/${metaObj.url}` });
+        this._meta.updateTag({ name: 'og:url', content: `http://anarajcevic.com/${metaObj.url}` });
         this._meta.updateTag({ name: 'og:image', content: image });
         this._meta.updateTag({ name: 'og:description', content: description });
     }

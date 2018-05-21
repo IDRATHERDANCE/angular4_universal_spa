@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { Observable } from 'rxjs/Observable';
@@ -19,7 +19,8 @@ import '../style/index.scss';
   selector: 'app',
   styleUrls: ['./app.component.scss'],
   templateUrl: './app.component.html',
-  animations: [fadeIn()]
+  animations: [fadeIn()],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 
 export class AppComponent implements OnInit {
