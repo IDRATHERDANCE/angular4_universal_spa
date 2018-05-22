@@ -7,7 +7,7 @@
     "start": "npm run start:heroku",
     "start:heroku": "node dist/server*.js",
     "start:normal": "npm run build && npm run server",
-    "start:forever": "npm run build && forever start dist/server*.js",
+    "start:forever": "forever stop 0 && npm run build && forever start dist/server*.js",
     "build": "webpack --progress --profile --bail",
     "build:aot": "webpack --env.aot --env.client & webpack --env.aot --env.server",
     "build:prod": "webpack --env.aot --env.client -p & webpack --env.aot --env.server",

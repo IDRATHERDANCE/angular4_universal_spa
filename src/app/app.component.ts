@@ -59,7 +59,10 @@ private _subMenuArray: Array<string>;
           this._changeDetectorRef.detectChanges();
       });
 
-      this.menuPresData$.subscribe( response => this._haveSubmenuFlag = !!response); 
+      this.menuPresData$.subscribe( response => { 
+        this._haveSubmenuFlag = !!response;
+        this._changeDetectorRef.detectChanges();
+      }); 
       
       this.popUp$.subscribe(response => {
         this._popIsUpFlag = response

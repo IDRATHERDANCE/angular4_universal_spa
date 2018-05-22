@@ -30,7 +30,7 @@ calls(url, reduxData, callback, seoCallback?) {
     
     if (this.platform.isServer()) { 
         this.getDataFromService(url, true, undefined, seoCallback); 
-    } else { 
+    } else { console.log(this._cache.get(url))
         reduxData.subscribe(
             response => { 
                 if (response.length > 0) {
