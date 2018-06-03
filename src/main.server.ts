@@ -49,5 +49,5 @@ knownRoutes.forEach((route) => {
 });
 
 app.listen(3000, () => {
-	console.log(`Listening at ${baseUrl}`);
+	console.log(`Listening to port ${port} at ${baseUrl}`);
 });

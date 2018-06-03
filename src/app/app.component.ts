@@ -9,7 +9,7 @@ import { DataActions } from '../actions/data-actions';
 import { enhancers } from '../store';
 import  InitialState  from '../store/initial.state';
 import { AppState } from '../store/state.interface';
-// const createLogger = require('redux-logger');
+// const logger = require('redux-logger');
 
 import { fadeIn } from './shared/fadeIn.animation';
 import { PlatformService } from './shared/platform.service';
@@ -34,6 +34,7 @@ public isItSplashValue: Boolean;
 private _haveSubmenuFlag: Boolean = false;
 private _popIsUpFlag: Boolean = false;
 private _subMenuArray: Array<string>;
+private _InitialState: any;
 
   constructor(
     private ngRedux: NgRedux<AppState>,
@@ -43,11 +44,16 @@ private _subMenuArray: Array<string>;
     public platform: PlatformService
   ) { 
 
-    const middleware = [  /* createLogger() */ ];
+    const middleware = [   /* logger.createLogger() */ ];
 
    let checkEnh = this.platform.isServer() ? [] : enhancers;
-
-    this.ngRedux.configureStore(reducer, InitialState, middleware, checkEnh); 
+   this._InitialState = InitialState;
+    if (!this.platform.isServer()) {
+      const currentStorage = window.sessionStorage.getItem('__anarajcevic.com__');
+      if (currentStorage) this._InitialState = JSON.parse(currentStorage);
+    }
+   
+   this.ngRedux.configureStore(reducer, this._InitialState, middleware, checkEnh); 
   
   }
 

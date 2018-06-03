@@ -11,6 +11,9 @@ import { PrepareObj } from '../shared/prepareObjects.service';
 
 import { TransferState } from '../../modules/transfer-state/transfer-state';
 
+const url = require('url');
+
+
 
 @Injectable()
 
@@ -30,21 +33,21 @@ calls(url, reduxData, callback, seoCallback?) {
     
     if (this.platform.isServer()) { 
         this.getDataFromService(url, true, undefined, seoCallback); 
-    } else { console.log(this._cache.get(url))
-        reduxData.subscribe(
-            response => { 
-                if (response.length > 0) {
-                    callback(response); 
-                } else {
-                    let resData = this._cache.get(url); 
-                    if (resData) { 
-                        callback(resData); 
-                        this.actions.dataChange(resData, url); 
-                    } else {
-                        this.getDataFromService(url, false, callback);
-                    }
-                }
-        });
+    } else {
+        let resData = this._cache.get(url);
+            if (resData) { 
+                callback(resData); 
+                this.actions.dataChange(resData, url); 
+            } else {
+                reduxData.subscribe(
+                    response => { 
+                        if (response.length > 0) {
+                            callback(response); 
+                        } else {
+                            this.getDataFromService(url, false, callback);
+                        }
+                });
+            }
     }
 }
 
@@ -62,10 +65,9 @@ getDataFromService(url, server, callback?, seoCallback?) {
                     seoCallback(response);
                 } else {
                     callback(response); 
+                    this.actions.dataChange(response, url); 
                 }
-
-                if (!this.subscriptionXHR) return;
-                this.subscriptionXHR.unsubscribe();
+                if (this.subscriptionXHR) this.subscriptionXHR.unsubscribe();
         });
 }
 
