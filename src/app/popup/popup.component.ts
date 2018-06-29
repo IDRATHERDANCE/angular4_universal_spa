@@ -57,6 +57,7 @@ private _tooTallFlag: boolean = false;
 public wrapPos: boolean = false;
 private _iframeAndDown: boolean = false;
 private _window = this.platform.isServer() ? this._w.window : window;
+public alt: string;
 
 // host listeners have to go before constructor    
 @HostListener('window:keydown', ['$event']) onKeyDown(event: any) {
@@ -109,27 +110,22 @@ constructor (
     }
 
     checkWhichPage(dir) { 
-        
 
         this.isItNews = false;
 
         this._page = this.contentObject.page;
         const index = this.counter; 
 
-            if (this._page === 'work') {
-                this.basicPhotos(dir); 
-            } else {
-            const  title = this.contentObject.content[index].title;    
-            this.location.go(`${this._page}/${title}`);
+        const  title = this.contentObject.content[index].title;    
+        this.location.go(`${this._page}/${title}`);
 
-            if ((this._page === 'exhibitions') || (this._page === 'press')) {
-                this.hasItVideo(dir);
-            }
+        if ((this._page === 'exhibitions') || (this._page === 'press') || (this._page === 'work')) {
+            this.hasItVideo(dir);
+        }
 
-            if (this._page === 'news') {
-                this.hasItVideo(dir);
-                this.isItNews = true;
-            }
+        if (this._page === 'news') {
+            this.hasItVideo(dir);
+            this.isItNews = true;
         }
     }
 
@@ -145,6 +141,9 @@ constructor (
         if (this._page === 'news') {
             this.newsText = this.contentObject.content[index].text.replace(/style=.*"/g, '').replace(/<em>/g, '').replace(/<\/em>/g, '');
         }
+
+        this.alt = this.contentObject.content[index].photo.alt
+
 
         return this.text || this.newsText;
     }

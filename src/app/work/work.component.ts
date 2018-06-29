@@ -49,7 +49,7 @@ export class WorkComponent implements OnInit, AfterViewInit {
         const metaObj: HeadMetaInterface = {
               title: 'Ana Rajecvic - Work',
               description: 'Body of work by the artist Ana Rajecvic',
-              image: seoResponse[0].acf.work_main_photo,
+              image: seoResponse[0].acf.work_main_photo.url,
               type: 'Work page',
               keywords: [],
               url: this._url

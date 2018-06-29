@@ -4,7 +4,7 @@
                 <div *ngFor= "let item of data; let i = index" class="exhPress" (click)='popUpActivate(i)'>
                      <div class="portThums">
                          <div class="aspect">
-                            <img [src]="item.acf.press_photo.url" /> 
+                            <img alt="{{item.acf.press_photo.caption}}" [src]="item.acf.press_photo.url" /> 
                          </div>
                      </div>
                      <h1 class="exhPressTitle">{{item.title.slice(0, 20)}}</h1>   

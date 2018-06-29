@@ -40,6 +40,7 @@ public isPortrait: boolean;
 public isTextLong: boolean;
 private _routeSegment: string;
 private _url: string = 'work';
+public alt: string;
 
     constructor (
         public actions: DataActions,
@@ -48,7 +49,6 @@ private _url: string = 'work';
         private _prepObj: PrepareObj,
         private _topService: TopService,
         private _renderer: Renderer2,
-        private _meta: Meta,
         private _common: CommonCalls,
         public platform: PlatformService,
         private _metaService: MetaService,
@@ -72,6 +72,7 @@ private _url: string = 'work';
             this.content = resObj.content;
             this.carousel = resObj.carousel;
             this.firstPhoto = resObj.firstPhoto;
+            this.alt = resObj.alt
             this.wholeContent = resObj.wholeContent;
             this._common.setMenu(response);
     }   
@@ -84,6 +85,7 @@ private _url: string = 'work';
             content: resObj.content,
             carousel: this.prepCar(resObj).slice(1),
             firstPhoto: this.prepCar(resObj)[0].photo.url,
+            alt: this.prepCar(resObj)[0].photo.alt,
             wholeContent: this.prepCar(resObj),
             keywords: resObj.terms.post_tag
         }
@@ -112,22 +114,35 @@ private _url: string = 'work';
     }
 
     prepCar(data) { 
-        const metaInside = data.acf,
-            meta = Object.keys(metaInside);
+        const metaInside = data.acf;
+        const meta = Object.keys(metaInside);
+        const video = metaInside.work_video;
+        const firstVideo = {
+            photo: {
+                url: video.thumbnail_url_with_play_button,
+                aspect: video.width / video.height
+            },
+            video: video.html
+        };
 
-            return meta.reduce( (all, item) => {  
+        const imagesArray = meta.reduce( (all, item) => {  
                 
                 if ((item.indexOf('work_main_photo') === - 1) && (item.indexOf('work_short_description') === - 1) 
                     && (metaInside[item])) {
                       all.push({
                             photo: {
                                 url: metaInside[item].url || metaInside[item].thumbnail_url_with_play_button,
-                                aspect: metaInside[item].width / metaInside[item].height
+                                aspect: metaInside[item].width / metaInside[item].height,
+                                alt: metaInside[item].caption
                             }
                         });
                     }
                     return all;
                  }, []);
+
+                 if (video) imagesArray.splice( 1, 0, firstVideo);
+            
+            return imagesArray;
     }
 
     popUpActivate(index: number) {

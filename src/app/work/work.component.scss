@@ -51,6 +51,9 @@
 
 .aspect {
     overflow:hidden;
+    background-repeat:no-repeat;
+    background-position:center;
+    @include vendor-prefix(background-size, cover);
 }
 
 .caption {

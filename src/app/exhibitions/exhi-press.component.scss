@@ -37,6 +37,8 @@
     
 }
 
-.exhPressTitle {  @include titleSize(); }
+.exhPressTitle {
+    @include thumbTitle();
+ }
 
 

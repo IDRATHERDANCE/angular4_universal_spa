@@ -8,7 +8,7 @@ const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
  * This is a common webpack config which is the base for all builds
  */
 module.exports = {
-  devtool: 'source-map',
+  // devtool: 'source-map',
   resolve: {
     extensions: ['.ts', '.js', '.json', '.css', '.scss', '.html']
   },
@@ -38,6 +38,6 @@ module.exports = {
       cssProcessorOptions: { discardComments: {removeAll: true } },
       canPrint: true
     }),
-    new webpack.optimize.UglifyJsPlugin({sourceMap: true, mangle: { keep_fnames: true }, output: {comments: false}})
+    new webpack.optimize.UglifyJsPlugin({sourceMap: false, mangle: { keep_fnames: true }, output: {comments: false}})
   ]
 };

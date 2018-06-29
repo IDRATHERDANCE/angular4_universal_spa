@@ -11,9 +11,6 @@ import { PrepareObj } from '../shared/prepareObjects.service';
 
 import { TransferState } from '../../modules/transfer-state/transfer-state';
 
-const url = require('url');
-
-
 
 @Injectable()
 
@@ -31,10 +28,10 @@ constructor(
 
 calls(url, reduxData, callback, seoCallback?) { 
     
-    if (this.platform.isServer()) { 
+    if (this.platform.isServer()) {  
         this.getDataFromService(url, true, undefined, seoCallback); 
     } else {
-        let resData = this._cache.get(url);
+        let resData = this._cache.get(url); 
             if (resData) { 
                 callback(resData); 
                 this.actions.dataChange(resData, url); 

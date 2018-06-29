@@ -21,7 +21,7 @@ export class CarouselComponent implements OnChanges {
 
 constructor () {}
 
-    ngOnChanges() { 
+    ngOnChanges() {
         if (this.carouselObject) {
                 this.carousel = this.carouselObject;
                 this.photo_carouselLengthFn(this.carouselObject.length);
@@ -48,7 +48,17 @@ constructor () {}
 
         let multiplyer = 1,
             length: any = this._carouselLength; 
-            if (length === 5) { multiplyer = 1; }
+            if (length === 5) { 
+                multiplyer = 1; 
+                if (_counter === 0) { 
+                    this.noMorePhotosLeft = true;
+                    this.noMorePhotosRight = false;
+                }
+                if (_counter === 1) {
+                    this.noMorePhotosRight = true;
+                    this.noMorePhotosLeft = false;
+                }
+            }
             if (length > 5) {
                 multiplyer = 2; 
 
@@ -66,10 +76,9 @@ constructor () {}
                     multiplyer = this.isOdd(length) ? 2.25 : 2;
                 } else {
                     this.noMorePhotosRight = false;
-                }  
-             
+                }
             }
-
+  
         const moveTimes = _counter * multiplyer * -26.5;
         this.translateCarousel = `translateX(${moveTimes}%)`;
 

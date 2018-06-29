@@ -10,7 +10,7 @@
                     [imageEl]="mainImage"
                     [textEl]="textBox"
                     >
-                            <img #mainImage class="destimain" [src]="firstPhoto" (click)='popUpActivate(0)'>
+                            <img #mainImage alt={{alt}} class="destimain" [src]="firstPhoto" (click)='popUpActivate(0)'>
                     </div>
                     <div class="clear"></div>
                         <carousel-directive [carouselObject]="carousel" (whichPhoto)="popUpActivate($event)"></carousel-directive>

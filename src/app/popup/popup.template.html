@@ -26,7 +26,7 @@
         <div class="mediaDiv" (mouseenter)="onMouseEnter()" (mouseleave)="onMouseLeave()" 
         [ngClass]="cssCH.mediaDivClasses(this)"> 
         
-        <img class="popImg" [ngClass]="cssCH.imgClasses(this)" *ngIf="!!currentPhoto && !currentIfame" [src]="currentPhoto" />
+        <img class="popImg" alt="{{alt}}" [ngClass]="cssCH.imgClasses(this)" *ngIf="!!currentPhoto && !currentIfame" [src]="currentPhoto" />
 
         <img *ngIf="!!currentIfame && !currentPhoto" [ngClass]="cssCH.ratioClasses(this)" class="ratio" src="../img/aspect.gif" />
         <iframe class="iframeEl" [ngClass]="cssCH.iframeClasses(this)" *ngIf="!!currentIfame && !currentPhoto" [src]="currentIfame" width="" height="" frameborder="0" webkitallowfullscreen=""

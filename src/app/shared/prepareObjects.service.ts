@@ -32,7 +32,8 @@ constructor() {}
                 url: item.acf[popOrNot].url,
                 aspect: item.acf[popOrNot].width / item.acf[popOrNot].height,
                 width: item.acf[popOrNot].width,
-                height: item.acf[popOrNot].height
+                height: item.acf[popOrNot].height,
+                alt: item.acf[popOrNot].caption
                 },
         video: page === ('exhibition') ? '' : item.acf[video].html,
         text: page === ('news') ? this.formateText(item, true) : this.formateText(item, false),

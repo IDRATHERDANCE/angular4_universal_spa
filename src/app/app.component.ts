@@ -29,11 +29,11 @@ export class AppComponent implements OnInit {
   @select(['applicationData', 'menuPresent']) menuPresData$: Observable<any>;
   @select(['applicationData', 'popUp']) popUp$: Observable<any>; 
 
-private isItWorkValue: Boolean;
+public isItWorkValue: Boolean;
 public isItSplashValue: Boolean;
-private _haveSubmenuFlag: Boolean = false;
-private _popIsUpFlag: Boolean = false;
-private _subMenuArray: Array<string>;
+public haveSubmenuFlag: Boolean = false;
+public popIsUpFlag: Boolean = false;
+public subMenuArray: Array<string>;
 private _InitialState: any;
 
   constructor(
@@ -66,17 +66,17 @@ private _InitialState: any;
       });
 
       this.menuPresData$.subscribe( response => { 
-        this._haveSubmenuFlag = !!response;
+        this.haveSubmenuFlag = !!response;
         this._changeDetectorRef.detectChanges();
       }); 
       
       this.popUp$.subscribe(response => {
-        this._popIsUpFlag = response
+        this.popIsUpFlag = response
         this._changeDetectorRef.detectChanges();
       }); 
 
       this.menuData$.subscribe(response => {     
-        this._subMenuArray = response
+        this.subMenuArray = response
         this._changeDetectorRef.detectChanges();
       }); 
 

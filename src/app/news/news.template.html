@@ -5,7 +5,7 @@
             
                  <div class="news_image" [ngClass]="{'longText': down, 'newsImageFirst': i === 0}">
                      <div class="aspect">
-                        <img [src]="item.acf.news_photo.url" /> 
+                        <img alt="{{item.acf.news_photo.caption}}" [src]="item.acf.news_photo.url" /> 
                     </div>
                  </div>
                 <div *ngIf="i === 0" class="newsTextWrap" [ngClass]="{'downNonPop': down}">
@@ -24,7 +24,7 @@
                     </div>
                 </div>
 
-                <h1 *ngIf="i > 0">{{item.title.slice(0, 20)}}</h1>
+                <h1 class="newsSmallTitle" *ngIf="i > 0">{{item.title.slice(0, 20)}}</h1>
 
             </div>    
         </div>        
