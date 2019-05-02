@@ -113,22 +113,15 @@ public alt: string;
         return res.filter(item => this._prepObj.formateTitle(item) === route)[0];
     }
 
-    prepCar(data) { 
+    prepCar(data) {
         const metaInside = data.acf;
         const meta = Object.keys(metaInside);
         const video = metaInside.work_video;
-        const firstVideo = {
-            photo: {
-                url: video.thumbnail_url_with_play_button,
-                aspect: video.width / video.height
-            },
-            video: video.html
-        };
 
         const imagesArray = meta.reduce( (all, item) => {  
                 
                 if ((item.indexOf('work_main_photo') === - 1) && (item.indexOf('work_short_description') === - 1) 
-                    && (metaInside[item])) {
+                    && (metaInside[item]) && (item.indexOf('work_video') === - 1)) {
                       all.push({
                             photo: {
                                 url: metaInside[item].url || metaInside[item].thumbnail_url_with_play_button,
@@ -140,8 +133,17 @@ public alt: string;
                     return all;
                  }, []);
 
-                 if (video) imagesArray.splice( 1, 0, firstVideo);
-            
+                 if (video) {
+                    const firstVideo = {
+                        photo: {
+                            url: video.thumbnail_url_with_play_button,
+                            aspect: video.width / video.height
+                        },
+                        video: video.html
+                    };
+                    imagesArray.splice( 1, 0, firstVideo);
+                }
+
             return imagesArray;
     }
 
