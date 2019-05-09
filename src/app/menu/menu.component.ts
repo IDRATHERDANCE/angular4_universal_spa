@@ -28,10 +28,10 @@ export class MenuComponent implements OnChanges {
     ngOnChanges() {
       const fire = this.topService.isFirefox();
       const subs = this.subMenuArray ? this.subMenuArray.length : 5;
-      const calcHeight = fire ? (subs + 1) * 1.5 : subs * 1.5;
+      const calcHeight = fire ? (subs + 3.5) * 1.5 : subs * 1.5;
       const upOrDown = this.isItWorkValue && this.haveSubmenuFlag;
       this.maxHeight = upOrDown ? calcHeight + 'rem' : '0rem';
-      const calcTop = fire ? (subs * 1.5) + 3.5 : (subs * 1.5) + 1.5;
+      const calcTop = fire ? (subs * 1.5) + 4 : (subs * 1.5) + 1.5;
       this.top = upOrDown ? calcTop + 'rem' : '1.3rem';
     }
 
