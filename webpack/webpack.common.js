@@ -25,7 +25,7 @@ module.exports = {
         exclude: root('src/app'),
         loader: ExtractTextPlugin.extract({ fallback: 'style-loader', use: ['css-loader', 'postcss-loader', 'sass-loader']})
       },
-      {test: /\.(scss|sass)$/, exclude: root('src/style'), loader: 'raw-loader!postcss-loader!sass-loader'} 
+      {test: /\.(scss|sass)$/, exclude: root('src/style'), loader: 'raw-loader!postcss-loader!sass-loader'}
     ]
   },
   plugins: [
@@ -33,11 +33,14 @@ module.exports = {
       from: root('src/public')
     }]),
     new ExtractTextPlugin({filename: 'css/[name].[hash].css'}),
-    new OptimizeCssAssetsPlugin({
-      cssProcessor: require('cssnano'),
-      cssProcessorOptions: { discardComments: {removeAll: true } },
-      canPrint: true
-    }),
+    // new OptimizeCssAssetsPlugin({
+    //   assetNameRegExp: /\.optimize\.css$/g,
+    //   cssProcessor: require('cssnano'),
+    //   cssProcessorPluginOptions: {
+    //     preset: ['default', { discardComments: { removeAll: true } }],
+    //   },
+    //   canPrint: true
+    // }),
     new webpack.optimize.UglifyJsPlugin({sourceMap: false, mangle: { keep_fnames: true }, output: {comments: false}})
   ]
 };
