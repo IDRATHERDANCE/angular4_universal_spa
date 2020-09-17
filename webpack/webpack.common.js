@@ -29,9 +29,11 @@ module.exports = {
     ]
   },
   plugins: [
-    new CopyWebpackPlugin([{
-      from: root('src/public')
-    }]),
+    new CopyWebpackPlugin({
+      patterns: [
+        { from: 'src/public', to: 'dist' }
+      ],
+    }),
     new ExtractTextPlugin({filename: 'css/[name].[hash].css'}),
     // new OptimizeCssAssetsPlugin({
     //   assetNameRegExp: /\.optimize\.css$/g,
