@@ -60,7 +60,7 @@
     "sass-loader": "^6.0.7",
     "script-ext-html-webpack-plugin": "^1.8.8",
     "serialize-javascript": "^5.0.1",
-    "shelljs": "^0.7.0",
+    "shelljs": "^0.8.5",
     "style-loader": "0.18.2",
     "ts-helpers": "^1.1.1",
     "tslib": "^1.13.0",
