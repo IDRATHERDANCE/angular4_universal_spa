@@ -1,6 +1,6 @@
 import { Injectable, Inject, NgZone } from '@angular/core';
 import { Meta } from '@angular/platform-browser';
-import { DOCUMENT } from '@angular/platform-browser';
+import { DOCUMENT } from '@angular/common';
 import { MOCK_WINDOW } from './mock.window';
 import { InterfaceMockWindow } from "./mock.window.inteface";
 import { PrepareMeta } from './prepare.meta.service';
@@ -10,17 +10,17 @@ import { PrepareMeta } from './prepare.meta.service';
 
 export class MetaService {
 
-constructor(
-    private _meta: Meta, 
-    @Inject(DOCUMENT) private _document, 
-    @Inject(MOCK_WINDOW) private _static: InterfaceMockWindow,
-    private _format: PrepareMeta) {}
+    constructor(
+        private _meta: Meta,
+        @Inject(DOCUMENT) private _document,
+        @Inject(MOCK_WINDOW) private _static: InterfaceMockWindow,
+        private _format: PrepareMeta) { }
 
     createMeta(metaObj) {
 
         const image = metaObj.image || this._static.defaultUrl,
-            keywords =  metaObj.keywords && metaObj.keywords.lengt === 0 ? this._format.formatKeywords(metaObj.keywords) : this._static.defaultKeywords,
-            description = this._format.removeCharacters(metaObj.description); 
+            keywords = metaObj.keywords && metaObj.keywords.lengt === 0 ? this._format.formatKeywords(metaObj.keywords) : this._static.defaultKeywords,
+            description = this._format.removeCharacters(metaObj.description);
 
         this._meta.updateTag({ name: 'title', content: metaObj.title });
         this._meta.updateTag({ name: 'description', content: description });

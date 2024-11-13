@@ -1,15 +1,15 @@
-@import '../../style/_mixins'; 
+@import '../../style/_mixins';
 
-.sub_menu{
-	text-transform: lowercase;
-	margin-bottom: 1.12rem;
+.sub_menu {
+   text-transform: lowercase;
+   margin-bottom: 1.12rem;
 }
 
 .sub_li {
-   cursor: pointer; 
+   cursor: pointer;
 }
 
 .sub_a {
-   color:#adb0b5; 
+   color: #adb0b5;
    font-size: 1.44rem;
 }

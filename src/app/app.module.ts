@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpModule } from '@angular/http';
+import { provideHttpClient } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 
 
@@ -9,8 +9,8 @@ import { AppComponent } from './app.component';
 import { RouteReuseStrategy } from "@angular/router";
 import { CustomReuseStrategy } from "./shared/customReuseStrategy";
 
-import { NgReduxModule, DevToolsExtension } from '@angular-redux/store';
-import { DataActions } from '../actions/data-actions';
+// import { NgReduxModule, DevToolsExtension } from '@angular-redux/store';
+// import { DataActions } from '../actions/data-actions.ts.bak';
 
 import { SubMenuComponent } from './submenu/subMenu.component';
 import { MenuComponent } from './menu/menu.component';
@@ -27,21 +27,27 @@ import { MOCK_WINDOW, MockWindow } from './shared/mock.window';
 import { ResizeWindow } from './shared/resize.service';
 import { CssClassesHelper } from './shared/cssClassesHelper.service';
 import { SubMenuPrettyPipe } from './shared/submenuPretty.pipe';
-
+import { SplashModule } from './splash/splash.module';
+import { WorkModule } from './work/work.module';
+import { NewsModule } from './news/news.module';
+import { PressModule } from './press/press.module';
+import { ExhibitionsModule } from './exhibitions/exhibitions.module';
+import { AboutModule } from './about/about.module';
+import { ContactModule } from './contact/contact.module';
 
 @NgModule({
   imports: [
     BrowserModule,
-    HttpModule,
-    NgReduxModule,
+
+    // NgReduxModule,
     RouterModule.forRoot([
-      { path: '', loadChildren: './splash/splash.module#SplashModule'},
-      { path: 'work', loadChildren: './work/work.module#WorkModule'},
-      { path: 'news', loadChildren: './news/news.module#NewsModule'},
-      { path: 'press', loadChildren: './press/press.module#PressModule'},
-      { path: 'exhibitions', loadChildren: './exhibitions/exhibitions.module#ExhibitionsModule'},
-      { path: 'about', loadChildren: './about/about.module#AboutModule'},
-      { path: 'contact', loadChildren: './contact/contact.module#ContactModule'}
+      { path: '', component: SplashModule },
+      { path: 'work', component: WorkModule },
+      { path: 'news', component: NewsModule },
+      { path: 'press', component: PressModule },
+      { path: 'exhibitions', component: ExhibitionsModule },
+      { path: 'about', component: AboutModule },
+      { path: 'contact', component: ContactModule }
     ])
   ],
   declarations: [
@@ -51,10 +57,11 @@ import { SubMenuPrettyPipe } from './shared/submenuPretty.pipe';
     SubMenuPrettyPipe
   ],
   providers: [
+    provideHttpClient(),
     HttpgetService,
     TopService,
-    DevToolsExtension,
-    DataActions,
+    // DevToolsExtension,
+    // DataActions,
     PlatformService,
     CommonCalls,
     PrepareObj,
@@ -69,6 +76,6 @@ import { SubMenuPrettyPipe } from './shared/submenuPretty.pipe';
     CssClassesHelper,
     { provide: MOCK_WINDOW, useValue: MockWindow }
   ],
-  exports: [ AppComponent ]
+  exports: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, HostListener } from '@angular/core';
 import { EventManager } from '@angular/platform-browser';
 
 import { PlatformService } from './platform.service';
@@ -8,11 +8,14 @@ import { PlatformService } from './platform.service';
 
 export class ResizeWindow {
 
-  constructor(private _eventManager: EventManager, public platform: PlatformService) {}
+  constructor(private _eventManager: EventManager, public platform: PlatformService) { }
+
+  @HostListener('window:resize', ['$event'])
 
   winResize(callback) {
     if (this.platform.isServer()) return;
-    this._eventManager.addGlobalEventListener('window', 'resize', callback);
+    // this._eventManager.addGlobalEventListener('window', 'resize', callback);
+    this.winResize(callback)
   }
 
   isItPhone() {

@@ -1,14 +1,16 @@
-import { Component, Input, EventEmitter, Output, OnChanges,
-        HostListener, ChangeDetectionStrategy, 
-        ChangeDetectorRef, ViewContainerRef, 
-        ViewChild, Renderer2, OnInit, OnDestroy, Inject } from '@angular/core';
+import {
+    Component, Input, EventEmitter, Output, OnChanges,
+    HostListener, ChangeDetectionStrategy,
+    ChangeDetectorRef, ViewContainerRef,
+    ViewChild, Renderer2, OnInit, OnDestroy, Inject
+} from '@angular/core';
 import { Location } from '@angular/common';
 import { DomSanitizer, Meta } from '@angular/platform-browser';
 
 import { RemoveEmptyLines } from '../shared/removeEmptyLines.service';
 import { ResizeWindow } from '../shared/resize.service';
 import { CssClassesHelper } from '../shared/cssClassesHelper.service';
-import { DataActions } from '../../actions/data-actions';
+// import { DataActions } from '../../actions/data-actions.ts.bak';
 import { MetaService } from '../shared/headMeta.service';
 
 import { MOCK_WINDOW } from '../shared/mock.window';
@@ -17,106 +19,110 @@ import { PlatformService } from '../shared/platform.service';
 import { HeadMetaInterface } from '../shared/headMeta.interface';
 import { PrepareMeta } from '../shared/prepare.meta.service';
 
+import { injectDispatch } from "@reduxjs/angular-redux";
+import { popUp } from "../../reducers";
 
-@Component ({
+
+@Component({
     selector: 'pop-up-init',
     templateUrl: './popup.template.html',
     styleUrls: ['./popup.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush
-    })
+})
 
 export class PopUpInitComponent implements OnChanges, OnInit, OnDestroy {
 
-@Input() contentObject: any;
-@Output() onPopOff = new EventEmitter<boolean>();
+    @Input() contentObject: any;
+    @Output() onPopOff = new EventEmitter<boolean>();
 
-@ViewChild('newsPopText', { read: ViewContainerRef })
-private _newsB: any;
-@ViewChild('popUpCont', { read: ViewContainerRef })
-private _popUpCont: any;
+    @ViewChild('newsPopText', { read: ViewContainerRef })
+    private _newsB: any;
+    @ViewChild('popUpCont', { read: ViewContainerRef })
+    private _popUpCont: any;
 
 
-private counter: number = 0;
-private isItTooTall: Boolean;
-private port: Boolean;
-private isPortWider: Boolean;
-private widerNews: Boolean;
-private down: Boolean;
-private hasPosition: Boolean = false;
-private wider: Boolean;
-public currentIfame: any;
-private coulmnsData: Object;
-public currentPhoto: any;
-private isItNews: Boolean;
-public newsText: string;
-public text: string;
-public arrowHover: boolean;
-private _page: string;
-private _imgLoad: boolean = false;
-private _tooTallFlag: boolean = false;
-public wrapPos: boolean = false;
-private _iframeAndDown: boolean = false;
-private _window = this.platform.isServer() ? this._w.window : window;
-public alt: string;
+    private counter: number = 0;
+    private isItTooTall: Boolean;
+    private port: Boolean;
+    private isPortWider: Boolean;
+    private widerNews: Boolean;
+    private down: Boolean;
+    private hasPosition: Boolean = false;
+    private wider: Boolean;
+    public currentIfame: any;
+    private coulmnsData: Object;
+    public currentPhoto: any;
+    private isItNews: Boolean;
+    public newsText: string;
+    public text: string;
+    public arrowHover: boolean;
+    private _page: string;
+    private _imgLoad: boolean = false;
+    private _tooTallFlag: boolean = false;
+    public wrapPos: boolean = false;
+    private _iframeAndDown: boolean = false;
+    private _window = this.platform.isServer() ? this._w.window : window;
+    public alt: string;
+    private dispatch = injectDispatch();
 
-// host listeners have to go before constructor    
-@HostListener('window:keydown', ['$event']) onKeyDown(event: any) {
+    // host listeners have to go before constructor
+    @HostListener('window:keydown', ['$event']) onKeyDown(event: any) {
 
-    const keyCodeNumber = event.keyCode;
+        const keyCodeNumber = event.keyCode;
 
         // esc key kills the pop-up
-    if ((keyCodeNumber) === 27) {
-        this.onPopOff.emit(false);
-        this.location.go(this.contentObject.page);
-    }
-    // space bar and right arrow move to the next pop-up right
-    if ((keyCodeNumber === 32) || (keyCodeNumber === 39) || (keyCodeNumber === 38)) {
-        event.preventDefault();
+        if ((keyCodeNumber) === 27) {
+            this.onPopOff.emit(false);
+            this.location.go(this.contentObject.page);
+        }
+        // space bar and right arrow move to the next pop-up right
+        if ((keyCodeNumber === 32) || (keyCodeNumber === 39) || (keyCodeNumber === 38)) {
+            event.preventDefault();
             this.nextItem();
-    }
-    // back space and left arrow move to the next pop-up right
-    if ((keyCodeNumber === 37) || (keyCodeNumber === 8) || (keyCodeNumber === 40)) {
-        event.preventDefault();
+        }
+        // back space and left arrow move to the next pop-up right
+        if ((keyCodeNumber === 37) || (keyCodeNumber === 8) || (keyCodeNumber === 40)) {
+            event.preventDefault();
             this.previousItem();
+        }
     }
-  }
 
-constructor (
-            private location: Location,
-            private sanitationService: DomSanitizer,
-            private _changeDetectorRef: ChangeDetectorRef,
-            private _removeEmptyLines: RemoveEmptyLines,
-            private _resizeWindow: ResizeWindow,
-            private _renderer: Renderer2,
-            public actions: DataActions,
-            public cssCH: CssClassesHelper,
-            @Inject(MOCK_WINDOW) private _w: InterfaceMockWindow,
-            public platform: PlatformService,
-            private _meta: Meta,
-            private _format: PrepareMeta,
-            private _metaService: MetaService) {}
+    constructor(
+        private location: Location,
+        private sanitationService: DomSanitizer,
+        private _changeDetectorRef: ChangeDetectorRef,
+        private _removeEmptyLines: RemoveEmptyLines,
+        private _resizeWindow: ResizeWindow,
+        private _renderer: Renderer2,
+        // public actions: DataActions,
+        public cssCH: CssClassesHelper,
+        @Inject(MOCK_WINDOW) private _w: InterfaceMockWindow,
+        public platform: PlatformService,
+        private _meta: Meta,
+        private _format: PrepareMeta,
+        private _metaService: MetaService) { }
 
     ngOnChanges() {
         this.counter = this.contentObject.itemClicked;
-        this.checkWhichPage(0); 
+        this.checkWhichPage(0);
     }
 
     ngOnInit() {
-        this.actions.popUp(true);
+        this.dispatch(popUp({ data: true }));
     }
 
     ngOnDestroy() {
-        this.actions.popUp(false)
+        this.dispatch(popUp({ data: false }));
     }
 
-    checkWhichPage(dir) { 
+    checkWhichPage(dir) {
 
         this.isItNews = false;
 
         this._page = this.contentObject.page;
-        const index = this.counter; 
+        const index = this.counter;
 
-        const  title = this.contentObject.content[index].title;    
+        const title = this.contentObject.content[index].title;
         this.location.go(`${this._page}/${title}`);
 
         if ((this._page === 'exhibitions') || (this._page === 'press') || (this._page === 'work')) {
@@ -129,8 +135,8 @@ constructor (
         }
     }
 
-    getText() { 
-        
+    getText() {
+
         const index = this.counter;
 
         if ((this._page === 'exhibitions') || (this._page === 'press')) {
@@ -145,37 +151,37 @@ constructor (
         this.alt = this.contentObject.content[index].photo.alt
 
 
-        return this.text || this.newsText;
+        return this.text || this.newsText;
     }
 
-    basicPhotos(dir) { 
+    basicPhotos(dir) {
 
         const index = this.counter;
 
         if (this.platform.isServer()) {
-            this.comonImgLoad(this.contentObject.content[index].photo.url); 
+            this.comonImgLoad(this.contentObject.content[index].photo.url);
         } else {
             const newImg = new Image();
             newImg.src = this.contentObject.content[index].photo.url;
 
-            newImg.onload =  () => {  
-                this.comonImgLoad(newImg.src); 
+            newImg.onload = () => {
+                this.comonImgLoad(newImg.src);
                 this._changeDetectorRef.markForCheck();
                 if (this._page === 'work') return;
                 this.lazyLoadImg(dir);
-            }; 
+            };
         }
 
-            if (this._page === 'news') {
-                this.coulmnsData = {
-                    width: this.contentObject.content[index].photo.width,
-                    height: this.contentObject.content[index].photo.height,
-                    pop: true
-                }; 
+        if (this._page === 'news') {
+            this.coulmnsData = {
+                width: this.contentObject.content[index].photo.width,
+                height: this.contentObject.content[index].photo.height,
+                pop: true
+            };
 
-            } else { 
-                this.checkAspect(this.contentObject.content[index].photo.aspect);
-            }   
+        } else {
+            this.checkAspect(this.contentObject.content[index].photo.aspect);
+        }
     }
 
     comonImgLoad(imgSrc) {
@@ -184,30 +190,30 @@ constructor (
         this._imgLoad = true;
     }
 
-    lazyLoadImg(dir) { 
-        
+    lazyLoadImg(dir) {
+
         const howMany = this.contentObject.content.length;
-        let  index = this.counter; 
+        let index = this.counter;
 
-        if (dir === 0 || dir === 2) {
-            index = index === 0 ? howMany - 1 : index; 
-            
-            if (this.contentObject.content[index - 1].newPop) return; 
-            
+        if (dir === 0 || dir === 2) {
+            index = index === 0 ? howMany - 1 : index;
+
+            if (this.contentObject.content[index - 1].newPop) return;
+
             const newImg0 = new Image();
-                newImg0.src = this.contentObject.content[index - 1].photo.url;
+            newImg0.src = this.contentObject.content[index - 1].photo.url;
 
-                if (dir === 2) return;
-                    newImg0.onload =  () => {  
-                        this.lazyLoadImg(1);
-                    }; 
+            if (dir === 2) return;
+            newImg0.onload = () => {
+                this.lazyLoadImg(1);
+            };
         } else {
-            index = index === howMany - 1 ? 0: index; 
-            
-            if (this.contentObject.content[index + 1].newPop) return; 
-            
+            index = index === howMany - 1 ? 0 : index;
+
+            if (this.contentObject.content[index + 1].newPop) return;
+
             const newImg1 = new Image();
-                newImg1.src = this.contentObject.content[index + 1].photo.url;
+            newImg1.src = this.contentObject.content[index + 1].photo.url;
         }
 
     }
@@ -216,11 +222,11 @@ constructor (
 
         this.currentPhoto = '';
         const index = this.counter,
-        iframe = this.contentObject.content[index].video;
+            iframe = this.contentObject.content[index].video;
 
         this.currentIfame = this.sanitationService.bypassSecurityTrustResourceUrl(iframe.substring(iframe.lastIndexOf('https:'),
-        iframe.lastIndexOf('width') - 2) +
-        '?autoplay=0&amp;title=0&amp;byline=0&amp;portrait=0&amp;loop=0&amp;api=0&amp;player_id=&amp;start=0');
+            iframe.lastIndexOf('width') - 2) +
+            '?autoplay=0&amp;title=0&amp;byline=0&amp;portrait=0&amp;loop=0&amp;api=0&amp;player_id=&amp;start=0');
         this.getText();
         this._imgLoad = true;
         if (this._page === 'news') {
@@ -228,7 +234,7 @@ constructor (
                 width: 16,
                 height: 8.67,
                 pop: true
-            };     
+            };
         }
 
     }
@@ -238,42 +244,42 @@ constructor (
             checkVideo = this.contentObject.content[index].video;
 
         if ((checkVideo === undefined) || (!checkVideo)) {
-                this.currentIfame = false;
-                this.basicPhotos(dir);
-            } else {
-                this.basicVideo();
-            }
+            this.currentIfame = false;
+            this.basicPhotos(dir);
+        } else {
+            this.basicVideo();
+        }
     }
 
     nextItem() {
 
         const numberOfItems = this.contentObject.content.length;
-        this.counter ++;
+        this.counter++;
 
-            if (numberOfItems === this.counter) {
-                this.counter = 0;
-            }
-    
-            this.nextPrevCommon(1);
+        if (numberOfItems === this.counter) {
+            this.counter = 0;
         }
 
-    previousItem() { 
+        this.nextPrevCommon(1);
+    }
+
+    previousItem() {
 
         const numberOfItems = this.contentObject.content.length;
-        this.counter --;
+        this.counter--;
 
-            if (this.counter === - 1) {
-                this.counter = numberOfItems - 1;
-            } 
-            
-            this.nextPrevCommon(2);       
+        if (this.counter === - 1) {
+            this.counter = numberOfItems - 1;
+        }
+
+        this.nextPrevCommon(2);
     }
 
     nextPrevCommon(dir) {
         this._imgLoad = false;
         this._tooTallFlag = false;
         this.currentPhoto = '';
-        this.hasPosition = false;  
+        this.hasPosition = false;
         this.checkWhichPage(dir);
     }
 
@@ -286,15 +292,15 @@ constructor (
             (event.target.nodeName === 'IMG') ||
             (event.target.nodeName === 'P') ||
             (event.target.className.indexOf('newsPopup') > -1)
-            ) {
-                this.nextItem();
-            } else {
-                this.onPopOff.emit(false);
-                this.location.go(this.contentObject.page);
-            }
+        ) {
+            this.nextItem();
+        } else {
+            this.onPopOff.emit(false);
+            this.location.go(this.contentObject.page);
+        }
     }
 
-    clickArrow(event) { 
+    clickArrow(event) {
         if (event.target.classList.value.indexOf('Right') > - 1) {
             this.nextItem();
         } else {
@@ -302,19 +308,19 @@ constructor (
         }
     }
 
-    checkAspect(aspect) { 
+    checkAspect(aspect) {
 
-        const detectAspect = ( () => {
+        const detectAspect = (() => {
 
             const windowAspect = this._window.innerWidth / this._window.innerHeight;
 
-                if (windowAspect >= aspect) {
-                    this.wider = true;
-                } else {
-                    this.wider = false;
-                }
+            if (windowAspect >= aspect) {
+                this.wider = true;
+            } else {
+                this.wider = false;
+            }
 
-                this._changeDetectorRef.markForCheck();
+            this._changeDetectorRef.markForCheck();
 
         });
         detectAspect();
@@ -322,21 +328,21 @@ constructor (
 
     }
 
-    columsClasses(value) { 
+    columsClasses(value) {
         this.down = value.classes;
         this.hasPosition = true;
 
-            const contEl = this._popUpCont.element.nativeElement,
-                    topCalc = (this._window.innerHeight - value.boxH) / 2 >= 0 ? (this._window.innerHeight - value.boxH) / 2 : 0,
-                    topCorr = this.isPortWider ? '' : '';
+        const contEl = this._popUpCont.element.nativeElement,
+            topCalc = (this._window.innerHeight - value.boxH) / 2 >= 0 ? (this._window.innerHeight - value.boxH) / 2 : 0,
+            topCorr = this.isPortWider ? '' : '';
 
 
-        if (value.classes && (!this.down || this.port) && !this.isPortWider && this.port) { 
-            this._renderer.setStyle(contEl, 'minHeight', `${value.boxH / 10}rem`) 
-            this._renderer.setStyle(contEl, 'top', `${topCalc / 10}rem`) 
+        if (value.classes && (!this.down || this.port) && !this.isPortWider && this.port) {
+            this._renderer.setStyle(contEl, 'minHeight', `${value.boxH / 10}rem`)
+            this._renderer.setStyle(contEl, 'top', `${topCalc / 10}rem`)
         } else {
             this._renderer.setStyle(contEl, 'minHeight', '');
-            this._renderer.setStyle(contEl, 'top', topCorr) 
+            this._renderer.setStyle(contEl, 'top', topCorr)
         }
     }
 
@@ -344,18 +350,18 @@ constructor (
         this.widerNews = value;
     }
 
-    portWider(value) { 
+    portWider(value) {
         this.isPortWider = value;
         this._iframeAndDown = !value && !!this.currentIfame;
     }
 
-    portraitNewsPhotos(value) { 
+    portraitNewsPhotos(value) {
         this.port = value;
     }
 
     tooTallBox(value) {
         this.isItTooTall = value;
-        this._tooTallFlag = true;            
+        this._tooTallFlag = true;
     }
 
     onMouseEnter() {

@@ -4,16 +4,17 @@ import { AppComponent } from './app.component';
 import { AppModule } from './app.module';
 import { BrowserTransferStateModule } from '../modules/transfer-state/browser-transfer-state.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+// import "@angular/compiler"
 
 @NgModule({
-  bootstrap: [ AppComponent ],
+  bootstrap: [AppComponent],
   imports: [
-    BrowserAnimationsModule,
-    BrowserModule.withServerTransition({
-      appId: 'my-app-id'
-    }),
-    BrowserTransferStateModule,
+    // BrowserAnimationsModule,
+    // BrowserModule.withServerTransition({
+    //   appId: 'my-app-id'
+    // }),
+    // BrowserTransferStateModule,
     AppModule
   ]
 })
-export class BrowserAppModule {}
+export class BrowserAppModule { }

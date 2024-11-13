@@ -1,4 +1,4 @@
-@import '../../style/_mixins'; 
+@import '../../style/_mixins';
 
 .arrow {
     overflow: visible;
@@ -17,53 +17,58 @@
     opacity: 0.65;
     filter: alpha(opacity=65);
     margin: 0;
-    
+
     padding: 0;
     -webkit-tap-highlight-color: transparent;
     opacity: 0.3;
     padding-top: 0;
     width: 1.3rem;
-    height: 2.7rem; 
-     
-    @media only screen and (min-width:736px) { 
+    height: 2.7rem;
+
+    @media only screen and (min-width:736px) {
         padding-top: 2%;
         width: 1.3%;
         height: auto;
-    }    
+    }
 
 }
-.arrow:hover, .arrowHover { opacity: 0.65; }
+
+.arrow:hover,
+.arrowHover {
+    opacity: 0.65;
+}
 
 
 .arrowLeft {
     background: url('./img/left.png') 0 0 / contain no-repeat;
     left: .3rem;
-        @media only screen and (min-width:736px) {
-            left: 1rem; 
-            cursor: w-resize;
-        }
+
+    @media only screen and (min-width:736px) {
+        left: 1rem;
+        cursor: w-resize;
+    }
 }
 
 .arrowRight {
     background: url('./img/right.png') 0 0 / contain no-repeat;
     right: .3rem;
 
-        @media only screen and (min-width:736px) {
-            right: 1rem; 
-            cursor: e-resize;
-        }
+    @media only screen and (min-width:736px) {
+        right: 1rem;
+        cursor: e-resize;
+    }
 }
 
 .popBackground {
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 1042;
-  overflow: hidden;
-  position: fixed;
-  background: white;
-  opacity: 0.8;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1042;
+    overflow: hidden;
+    position: fixed;
+    background: white;
+    opacity: 0.8;
 }
 
 .popUpWrap {
@@ -83,7 +88,7 @@
     display: inline-block;
     height: 100%;
     vertical-align: middle;
-} 
+}
 
 .posAbso {
     position: absolute;
@@ -123,17 +128,17 @@
     }
 }
 
-.mediaDiv { 
-    height: 100%; 
+.mediaDiv {
+    height: 100%;
     width: auto;
- 
-} 
 
-.mediaDiv.longText {  
+}
+
+.mediaDiv.longText {
     @media only screen and (min-width:736px) {
-        width: 100%; 
+        width: 100%;
     }
-} 
+}
 
 .madiaIframe {
     position: relative;
@@ -144,7 +149,7 @@
     display: block;
 }
 
-.textDiv { 
+.textDiv {
     width: 100%;
     text-align: left;
     padding-left: .2rem;
@@ -154,12 +159,12 @@
     bottom: 0;
 }
 
- .ratio {
-     display:block;
-     width:100%;
-     height:auto;
-     position: relative;
-     padding-bottom: 2rem;
+.ratio {
+    display: block;
+    width: 100%;
+    height: auto;
+    position: relative;
+    padding-bottom: 2rem;
 }
 
 .iframeEl {
@@ -174,6 +179,7 @@
 .widerRatio {
     padding-bottom: 0;
 }
+
 .widerIframe {
     padding-top: 0;
 }
@@ -181,12 +187,13 @@
 .portNews {
     width: 90%;
     height: auto;
+
     @media only screen and (min-width:736px) {
-        height: 80%; 
+        height: 80%;
         @include calc(top, '10% - 1rem');
         opacity: 1;
-        position: absolute; 
-        left: 0;    
+        position: absolute;
+        left: 0;
         width: 100%;
         display: inline-block;
         text-align: center;
@@ -205,7 +212,7 @@
 }
 
 .newsPopup {
-    background: white;  
+    background: white;
     display: inline-block;
     vertical-align: top;
     height: auto;
@@ -213,45 +220,69 @@
     text-align: left;
     padding: 1.3rem 1.8% 2.56rem 1.8%;
     width: 100%;
-    p, h1, h2, span, p a {color: rgb(173, 176, 181);} 
-    
-    @media only screen and (min-width:736px) {      
+
+    p,
+    h1,
+    h2,
+    span,
+    p a {
+        color: rgb(173, 176, 181);
+    }
+
+    @media only screen and (min-width:736px) {
         background: black;
-        color: rgb(222,223,225); 
-        p, div, h1, h2, span, p a { color: rgb(222,223,225); cursor: e-resize;}
-        p a { cursor: pointer; }
+        color: rgb(222, 223, 225);
+
+        p,
+        div,
+        h1,
+        h2,
+        span,
+        p a {
+            color: rgb(222, 223, 225);
+            cursor: e-resize;
+        }
+
+        p a {
+            cursor: pointer;
+        }
+
         cursor: e-resize;
     }
 
 }
+
 .widerBox {
     height: 100%;
-} 
+}
 
-.widerBox.notVisible, .widerBox.down { height: auto; }
+.widerBox.notVisible,
+.widerBox.down {
+    height: auto;
+}
 
 
 .down {
 
-    @include vendor-prefix(column-count, 1); 
-    @include vendor-prefix(column-rule, 0 outset #dedfe1); 
-    @include vendor-prefix(column-gap, 0);  
+    @include vendor-prefix(column-count, 1);
+    @include vendor-prefix(column-rule, 0 outset #dedfe1);
+    @include vendor-prefix(column-gap, 0);
 
-        @media only screen and (min-width:736px) {    
-                @include vendor-prefix(column-count, 2); 
-                @include vendor-prefix(column-rule, .2rem outset #dedfe1); 
-                @include vendor-prefix(column-gap, 4rem);   
-        }
+    @media only screen and (min-width:736px) {
+        @include vendor-prefix(column-count, 2);
+        @include vendor-prefix(column-rule, .2rem outset #dedfe1);
+        @include vendor-prefix(column-gap, 4rem);
+    }
 }
 
 .up {
-    @media only screen and (min-width:736px) { 
+    @media only screen and (min-width:736px) {
         width: 23%;
     }
 }
 
-.andPort{
-    @media only screen and (min-width:736px) { 
+.andPort {
+    @media only screen and (min-width:736px) {
         min-width: 13rem;
         max-width: 27rem;
         height: 100%;
@@ -269,52 +300,55 @@
     width: 19.1%;
     display: none;
 
-    @media only screen and (min-width:736px) {  
-        display: inline-block;   
+    @media only screen and (min-width:736px) {
+        display: inline-block;
     }
 
-}  
+}
 
 .notVisible.widerBox {
     width: 23%;
-} 
+}
 
 .iframeHidden.notVisible.widerBox {
     width: 19.1%;
 }
+
 .landNews {
     opacity: 1;
     width: 90%;
-    @media only screen and (min-width:736px) {  
+
+    @media only screen and (min-width:736px) {
         width: 60%;
     }
 }
 
-.tooTall{
-    @media only screen and (min-width:736px) {  
+.tooTall {
+    @media only screen and (min-width:736px) {
         width: 50%;
-    }              
+    }
 }
 
 .portNewsWider {
     position: relative;
     width: 90%;
-    top:auto;
+    top: auto;
     height: auto;
-    @media only screen and (min-width:736px) { 
+
+    @media only screen and (min-width:736px) {
         background: black;
-        cursor: e-resize; 
+        cursor: e-resize;
         width: 80%;
-    } 
+    }
 }
 
 .portWider {
-    @media only screen and (min-width:736px) { 
-        width: 77%; 
-        float: left; 
+    @media only screen and (min-width:736px) {
+        width: 77%;
+        float: left;
     }
 }
-        
+
 .imgPortWider {
     display: block;
     width: 100%;
@@ -322,7 +356,7 @@
 }
 
 .up.widerBox {
-    @media only screen and (min-width:736px) { 
-         margin-left: -.5rem;
+    @media only screen and (min-width:736px) {
+        margin-left: -.5rem;
     }
 }

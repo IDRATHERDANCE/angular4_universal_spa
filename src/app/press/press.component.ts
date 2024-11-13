@@ -1,8 +1,8 @@
 import { Component, OnInit, Renderer2, AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { select } from '@angular-redux/store';
-import { Observable } from 'rxjs/Observable';
+// import { select } from '@angular-redux/store';
+// import { Observable } from 'rxjs/Observable';
 
 import { routerAnimation } from '../shared/router.animations';
 import { ResizeWindow } from '../shared/resize.service';
@@ -13,37 +13,40 @@ import { PlatformService } from '../shared/platform.service';
 import { MetaService } from '../shared/headMeta.service';
 import { HeadMetaInterface } from '../shared/headMeta.interface';
 
-    @Component({
-        selector: 'press-component',
-        templateUrl: './press.template.html',
-        styleUrls: ['../exhibitions/exhi-press.component.scss'],
-        animations: [routerAnimation()],
-        host: {'[@routeAnimation]': 'true'},
-        changeDetection: ChangeDetectionStrategy.OnPush
-        })
+import { injectSelector } from "@reduxjs/angular-redux";
+import { AppState } from '../../store/state.interface';
+
+@Component({
+    selector: 'press-component',
+    templateUrl: './press.template.html',
+    styleUrls: ['../exhibitions/exhi-press.component.scss'],
+    animations: [routerAnimation()],
+    host: { '[@routeAnimation]': 'true' },
+    changeDetection: ChangeDetectionStrategy.OnPush
+})
 
 export class PressComponent implements OnInit, AfterViewInit {
-  
-  @select(['applicationData', 'routeData', 'press']) pressData$: Observable<any>;
 
+    // @select(['applicationData', 'routeData', 'press']) pressData$: Observable<any>;
+    private pressData = injectSelector((state: AppState) => state.applicationData.routeData.press);
 
-public data: Object;
-private wholeContent: Object;
-public htmlObject: any;
-private subscriptionRoute: any;
-private _routeSegment: string;
-private _url: string = 'press';
+    public data: Object;
+    private wholeContent: Object;
+    public htmlObject: any;
+    private subscriptionRoute: any;
+    private _routeSegment: string;
+    private _url: string = 'press';
 
-constructor (
-    private route: ActivatedRoute, 
-    private _resizeWindow: ResizeWindow,
-    private _prepObj: PrepareObj,
-    private _topService: TopService,
-    private _renderer: Renderer2,
-    private _common: CommonCalls,
-    public platform: PlatformService,
-    private _metaService: MetaService,
-    private _changeDetectorRef: ChangeDetectorRef) {}
+    constructor(
+        private route: ActivatedRoute,
+        private _resizeWindow: ResizeWindow,
+        private _prepObj: PrepareObj,
+        private _topService: TopService,
+        private _renderer: Renderer2,
+        private _common: CommonCalls,
+        public platform: PlatformService,
+        private _metaService: MetaService,
+        private _changeDetectorRef: ChangeDetectorRef) { }
 
 
     ngOnInit() {
@@ -52,7 +55,7 @@ constructor (
             this._routeSegment = params['article'];
         });
 
-        this._common.calls(this._url, this.pressData$, 
+        this._common.calls(this._url, this.pressData(),
             response => this.populateResponse(response),
             seoCallback => this.createSeoHeader(seoCallback)
         );
@@ -60,7 +63,7 @@ constructor (
 
     populateResponse(response) {
         this._changeDetectorRef.markForCheck();
-        
+
         const lookForResize = (() => {
             this.data = this._resizeWindow.dataTrimmed(response)
         });
@@ -70,26 +73,26 @@ constructor (
         if (this._routeSegment !== undefined) {
             this.popUpActivateByRoute(response, this._routeSegment);
         }
-    }  
-    
+    }
+
     createSeoHeader(seoResponse) {
         let metaObj: HeadMetaInterface = this._prepObj.prepareSeoObj(seoResponse, this._routeSegment, this._url);
-            this._metaService.createMeta(metaObj);
+        this._metaService.createMeta(metaObj);
     }
 
     ngAfterViewInit() {
         this._topService.setTop(this._renderer);
-    }      
+    }
 
     popUpActivate(index: number) {
-        this.htmlObjMethod(index); 
+        this.htmlObjMethod(index);
     }
 
     popUpActivateByRoute(res, routeSegment) {
-        const current =  this._prepObj.getClicked(res, routeSegment);
-            this.htmlObjMethod(current); 
+        const current = this._prepObj.getClicked(res, routeSegment);
+        this.htmlObjMethod(current);
     }
-        
+
     htmlObjMethod(clickedCurrent) {
         this.htmlObject = this._prepObj.htmlObj(clickedCurrent, 'press', this.wholeContent);
     }

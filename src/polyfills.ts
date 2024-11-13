@@ -1,8 +1,10 @@
-import 'core-js/client/shim';
+// import 'core-js/client/shim';
+import 'core-js/features/reflect';
 import 'reflect-metadata';
 import 'web-animations-js';
 
-require('zone.js/dist/zone');
+// require('zone.js/dist/zone');
+import 'zone.js';
 
 import 'ts-helpers';
 
@@ -14,5 +16,5 @@ if (process.env.ENV === 'build') {
 
   Error['stackTraceLimit'] = Infinity;
 
-  require('zone.js/dist/long-stack-trace-zone');
+  // require('zone.js/dist/long-stack-trace-zone');
 }

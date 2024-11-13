@@ -6,39 +6,47 @@ import { AppModule } from './app.module';
 import { TransferState } from '../modules/transfer-state/transfer-state';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+// import "@angular/compiler"
 
 export function onBootstrap(appRef: ApplicationRef, transferState: TransferState) {
   return () => {
-    appRef.isStable
-      .filter(stable => stable)
-      .first()
-      .subscribe(() => {
-        transferState.inject();
-      });
+    // appRef.isStable
+    //   .filter(stable => stable)
+    //   .first()
+    //   .subscribe(() => {
+    //     transferState.inject();
+    //   });
+
+    appRef.whenStable().then(() => {
+      transferState.inject()
+    });
+
+
+    // if (appRef.isStable) { transferState.inject() }
   };
 }
 
 @NgModule({
   bootstrap: [AppComponent],
-  imports: [ 
-    BrowserAnimationsModule, 
-    BrowserModule.withServerTransition({
-      appId: 'my-app-id'
-    }),
-    ServerModule,
-    ServerTransferStateModule,
+  imports: [
+    // BrowserAnimationsModule,
+    // BrowserModule.withServerTransition({
+    //   appId: 'my-app-id'
+    // }),
+    // ServerModule,
+    // ServerTransferStateModule,
     AppModule
   ],
   providers: [
-    {
-      provide: APP_BOOTSTRAP_LISTENER,
-      useFactory: onBootstrap,
-      multi: true,
-      deps: [
-        ApplicationRef,
-        TransferState
-      ]
-    }
+    // {
+    //   provide: APP_BOOTSTRAP_LISTENER,
+    //   useFactory: onBootstrap,
+    //   multi: true,
+    //   deps: [
+    //     ApplicationRef,
+    //     TransferState
+    //   ]
+    // }
   ]
 })
 export class ServerAppModule {
