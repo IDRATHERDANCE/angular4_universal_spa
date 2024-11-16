@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, ViewContainerRef, ViewChild, Renderer2, AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef  } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewContainerRef, ViewChild, Renderer2, AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Meta } from '@angular/platform-browser';
 
@@ -14,14 +14,14 @@ import { CommonCalls } from '../shared/commonCalls.service';
 import { PlatformService } from '../shared/platform.service';
 import { HeadMetaInterface } from '../shared/headMeta.interface';
 
-    @Component({
-        selector: 'project-component',
-        templateUrl: './project.template.html',
-        styleUrls: ['./project.component.scss'],
-        animations: [routerAnimation()],
-        host: {'[@routeAnimation]': 'true'},
-        changeDetection: ChangeDetectionStrategy.OnPush
-        })
+@Component({
+    selector: 'project-component',
+    templateUrl: './project.template.html',
+    styleUrls: ['./project.component.scss'],
+    animations: [routerAnimation()],
+    host: { '[@routeAnimation]': 'true' },
+    changeDetection: ChangeDetectionStrategy.OnPush
+})
 
 export class ProjectComponent implements OnInit, AfterViewInit {
 
@@ -29,22 +29,22 @@ export class ProjectComponent implements OnInit, AfterViewInit {
     @ViewChild('mainImage', { read: ViewContainerRef })
     @ViewChild('textBox', { read: ViewContainerRef })
 
-public headline: string;
-public sub: string;
-public content: string;
-public carousel: Object;
-public firstPhoto: string;
-private wholeContent: Object;
-public htmlObject: any;
-public isPortrait: boolean;
-public isTextLong: boolean;
-private _routeSegment: string;
-private _url: string = 'work';
-public alt: string;
+    public headline: string;
+    public sub: string;
+    public content: string;
+    public carousel: Object;
+    public firstPhoto: string;
+    private wholeContent: Object;
+    public htmlObject: any;
+    public isPortrait: boolean;
+    public isTextLong: boolean;
+    private _routeSegment: string;
+    private _url: string = 'work';
+    public alt: string;
 
-    constructor (
+    constructor(
         public actions: DataActions,
-        private route: ActivatedRoute, 
+        private route: ActivatedRoute,
         public viewContainerRef: ViewContainerRef,
         private _prepObj: PrepareObj,
         private _topService: TopService,
@@ -52,12 +52,12 @@ public alt: string;
         private _common: CommonCalls,
         public platform: PlatformService,
         private _metaService: MetaService,
-        private _changeDetectorRef: ChangeDetectorRef) {}
+        private _changeDetectorRef: ChangeDetectorRef) { }
 
     ngOnInit() {
         this.headline = this.sub = '';
         this.route.params.subscribe(params => this._routeSegment = params['project']);
-        this._common.calls(this._url, this.workData$, 
+        this._common.calls(this._url, this.workData$,
             response => this.populateResponse(response),
             seoCallback => this.createSeoHeader(seoCallback)
         );
@@ -67,44 +67,47 @@ public alt: string;
         this._changeDetectorRef.markForCheck();
 
         const resObj = this.formatResponse(response);
-            this.headline = resObj.headline;
-            this.sub = resObj.sub;
-            this.content = resObj.content;
-            this.carousel = resObj.carousel;
-            this.firstPhoto = resObj.firstPhoto;
-            this.alt = resObj.alt
-            this.wholeContent = resObj.wholeContent;
-            this._common.setMenu(response);
-    }   
+        this.headline = resObj.headline;
+        this.sub = resObj.sub;
+        this.content = resObj.content;
+        this.carousel = resObj.carousel;
+        this.firstPhoto = resObj.firstPhoto;
+        this.alt = resObj.alt
+        this.wholeContent = resObj.wholeContent;
+        this._common.setMenu(response);
+    }
 
-    formatResponse(res) {
+    formatResponse(res: any) {
         const resObj = this.prepObj(res, this._routeSegment);
+        const carPrep = this.prepCar(resObj);
+        const firstPhoto = carPrep.length ? carPrep[0].photo.url : '';
+        const alt = carPrep.length ? carPrep[0].photo.alt : '';
         return {
             headline: resObj.title,
             sub: resObj.acf.work_short_description,
             content: resObj.content,
             carousel: this.prepCar(resObj).slice(1),
-            firstPhoto: this.prepCar(resObj)[0].photo.url,
-            alt: this.prepCar(resObj)[0].photo.alt,
+            firstPhoto,
+            alt,
             wholeContent: this.prepCar(resObj),
             keywords: resObj.terms.post_tag
         }
     }
-    
-    createSeoHeader(seoResponse) { 
-        const resObj = this.formatResponse(seoResponse),
-              metaObj: HeadMetaInterface = {
-              title: `Ana Rajecvic - ${resObj.headline}`,
-              description: resObj.content,
-              image: resObj.firstPhoto,
-              type: 'Project page',
-              keywords: resObj.keywords,
-              url: `work/${resObj.headline.toLowerCase()}`
-          }
 
-          this._metaService.createMeta(metaObj);
+    createSeoHeader(seoResponse) {
+        const resObj = this.formatResponse(seoResponse),
+            metaObj: HeadMetaInterface = {
+                title: `Ana Rajecvic - ${resObj.headline}`,
+                description: resObj.content,
+                image: resObj.firstPhoto,
+                type: 'Project page',
+                keywords: resObj.keywords,
+                url: `work/${resObj.headline.toLowerCase()}`
+            }
+
+        this._metaService.createMeta(metaObj);
     }
-    
+
     ngAfterViewInit() {
         this._topService.setTop(this._renderer);
     }
@@ -118,33 +121,32 @@ public alt: string;
         const meta = Object.keys(metaInside);
         const video = metaInside.work_video;
 
-        const imagesArray = meta.reduce( (all, item) => {  
-                
-                if ((item.indexOf('work_main_photo') === - 1) && (item.indexOf('work_short_description') === - 1) 
-                    && (metaInside[item]) && (item.indexOf('work_video') === - 1)) {
-                      all.push({
-                            photo: {
-                                url: metaInside[item].url || metaInside[item].thumbnail_url_with_play_button,
-                                aspect: metaInside[item].width / metaInside[item].height,
-                                alt: metaInside[item].caption
-                            }
-                        });
+        const imagesArray = meta.reduce((all, item) => {
+
+            if (item !== 'work_main_photo' && item !== 'work_short_description' && item !== 'work_video' && item !== 'position' && metaInside[item]) {
+                all.push({
+                    photo: {
+                        url: metaInside[item].url || metaInside[item].thumbnail_url_with_play_button,
+                        aspect: metaInside[item].width / metaInside[item].height,
+                        alt: metaInside[item].caption
                     }
-                    return all;
-                 }, []);
+                });
+            }
+            return all;
+        }, []);
 
-                 if (video) {
-                    const firstVideo = {
-                        photo: {
-                            url: video.thumbnail_url_with_play_button,
-                            aspect: video.width / video.height
-                        },
-                        video: video.html
-                    };
-                    imagesArray.splice( 1, 0, firstVideo);
-                }
+        if (video) {
+            const firstVideo = {
+                photo: {
+                    url: video.thumbnail_url_with_play_button,
+                    aspect: video.width / video.height
+                },
+                video: video.html
+            };
+            imagesArray.splice(1, 0, firstVideo);
+        }
 
-            return imagesArray;
+        return imagesArray;
     }
 
     popUpActivate(index: number) {

@@ -1,6 +1,9 @@
 {
   "compilerOptions": {
-    "types" : [ "node" ],
+    "skipLibCheck": true,
+    "types": [
+      "node"
+    ],
     "typeRoots": [
       "node_modules/@types"
     ],
@@ -13,7 +16,8 @@
     "emitDecoratorMetadata": true,
     "lib": [
       "es2016",
-      "dom"
+      "dom",
+      "esnext.asynciterable"
     ]
   },
   "include": [

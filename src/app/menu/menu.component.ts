@@ -14,25 +14,25 @@ import { fadeIn } from '../shared/fadeIn.animation';
 
 export class MenuComponent implements OnChanges {
 
-    @Input() subMenuArray: Array<string>;
-    @Input() popIsUpFlag: boolean;
-    @Input() isItSplashValue: boolean;
-    @Input() isItWorkValue: boolean;
-    @Input() haveSubmenuFlag: boolean;
+  @Input() subMenuArray: Array<string>;
+  @Input() popIsUpFlag: boolean;
+  @Input() isItSplashValue: boolean;
+  @Input() isItWorkValue: boolean;
+  @Input() haveSubmenuFlag: boolean;
 
-    public maxHeight: string;
-    public top: string;
+  public maxHeight: string;
+  public top: string;
 
-    constructor(public topService: TopService) {}
+  constructor(public topService: TopService) { }
 
-    ngOnChanges() {
-      const fire = this.topService.isFirefox();
-      const subs = this.subMenuArray ? this.subMenuArray.length : 5;
-      const calcHeight = fire ? (subs * 1.5) + 1 : subs * 1.5;
-      const upOrDown = this.isItWorkValue && this.haveSubmenuFlag;
-      this.maxHeight = upOrDown ? calcHeight + 'rem' : '0rem';
-      const calcTop = fire ? (subs * 1.5) + 2.5 : (subs * 1.5) + 1.5;
-      this.top = upOrDown ? calcTop + 'rem' : '1.3rem';
-    }
+  ngOnChanges() {
+    const fire = this.topService.isFirefox();
+    const subs = this.subMenuArray ? this.subMenuArray.length : 5;
+    const calcHeight = fire ? (subs * 1.6) + 1 : subs * 1.6;
+    const upOrDown = this.isItWorkValue && this.haveSubmenuFlag;
+    this.maxHeight = upOrDown ? calcHeight + 'rem' : '0rem';
+    const calcTop = fire ? (subs * 1.6) + 2.5 : (subs * 1.6) + 1.5;
+    this.top = upOrDown ? calcTop + 'rem' : '1.3rem';
+  }
 
 }
