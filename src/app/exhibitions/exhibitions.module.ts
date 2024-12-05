@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SharedModule } from '../shared.module';
+import { SharedModule } from '../shared/shared.module';
 
 import { ExhibitionsComponent } from './exhibitions.component';
 
@@ -12,6 +12,6 @@ import { exhibitionsRoutes } from './exhibitions.routing';
     SharedModule,
     exhibitionsRoutes
   ],
-  declarations: [ ExhibitionsComponent ]
+  declarations: [ExhibitionsComponent]
 })
-export class ExhibitionsModule {}
+export class ExhibitionsModule { }

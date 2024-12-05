@@ -1,7 +1,11 @@
-import { Component, OnInit, Renderer2, AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import {
+    Component, OnInit, Renderer2,
+    AfterViewInit, ChangeDetectionStrategy,
+    ChangeDetectorRef, StateKey
+} from '@angular/core';
 
-import { select } from '@angular-redux/store';
-import { Observable } from 'rxjs/Observable';
+// import { select } from '@angular-redux/store';
+// import { Observable } from 'rxjs/Observable';
 
 import { routerAnimation } from '../shared/router.animations';
 import { CommonCalls } from '../shared/commonCalls.service';
@@ -15,46 +19,46 @@ import { HeadMetaInterface } from '../shared/headMeta.interface';
     templateUrl: './about.component.html',
     styleUrls: ['./about.component.scss'],
     animations: [routerAnimation()],
-    host: {'[@routeAnimation]': 'true'},
+    host: { '[@routeAnimation]': 'true', ngSkipHydration: 'true' },
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AboutComponent implements OnInit, AfterViewInit {
-    
-    @select(['applicationData', 'routeData', 'about']) aboutData$: Observable<any>;
 
-public pageContent: any;
-public aboutPhoto: any;
-public columnRight: any;
-private _url: string = 'about'
+    // @select(['applicationData', 'routeData', 'about']) aboutData$: Observable<any>;
+
+    public pageContent: any;
+    public aboutPhoto: any;
+    public columnRight: any;
+    private _url: StateKey<string> = 'about' as StateKey<string>;
 
 
-  constructor(
-    private _topService: TopService,
-    private _renderer: Renderer2,
-    private _common: CommonCalls,
-    public platform: PlatformService,
-    private _metaService: MetaService,
-    private _changeDetectorRef: ChangeDetectorRef) {}
+    constructor(
+        private _topService: TopService,
+        private _renderer: Renderer2,
+        private _common: CommonCalls,
+        public platform: PlatformService,
+        private _metaService: MetaService,
+        private _changeDetectorRef: ChangeDetectorRef) { }
 
     ngOnInit() {
-        this._common.calls(this._url, this.aboutData$, 
-            response => this.populateResponse(response),
-            seoCallback => this.createSeoHeader(seoCallback)
+        this._common.calls(this._url,
+            (response: any) => this.populateResponse(response),
+            (seoCallback: any) => this.createSeoHeader(seoCallback)
         );
     }
 
-    populateResponse(response) { 
+    populateResponse(response: any) {
 
         this._changeDetectorRef.markForCheck();
 
         const resObj = this.formatResponse(response);
 
-            this.pageContent = resObj.content;
-            this.aboutPhoto = resObj.photo;
-            this.columnRight = resObj.columnRight;  
+        this.pageContent = resObj.content;
+        this.aboutPhoto = resObj.photo;
+        this.columnRight = resObj.columnRight;
     }
 
-    formatResponse(res) {
+    formatResponse(res: any) {
         return {
             content: res[0].content,
             photo: res[0].acf.about_photo,
@@ -62,21 +66,21 @@ private _url: string = 'about'
         }
     }
 
-    createSeoHeader(seoResponse) {
-      const resObj = this.formatResponse(seoResponse),
+    createSeoHeader(seoResponse: any) {
+        const resObj = this.formatResponse(seoResponse),
             metaObj: HeadMetaInterface = {
-            title: 'Ana Rajecvic - About',
-            description: resObj.content,
-            image: resObj.photo,
-            type: 'about page',
-            keywords: [],
-            url: this._url
-        }
+                title: 'Ana Rajecvic - About',
+                description: resObj.content,
+                image: resObj.photo,
+                type: 'about page',
+                keywords: [],
+                url: this._url
+            }
 
         this._metaService.createMeta(metaObj);
     }
-    
-    ngAfterViewInit() {        
+
+    ngAfterViewInit() {
         this._topService.setTop(this._renderer);
     }
 

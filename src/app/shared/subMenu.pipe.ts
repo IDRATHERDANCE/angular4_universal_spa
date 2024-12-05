@@ -1,10 +1,10 @@
-import {Pipe, PipeTransform} from '@angular/core';
+import { Pipe, PipeTransform } from '@angular/core';
 
-    @Pipe({name: 'subMenuPipe'})
+@Pipe({ name: 'subMenuPipe' })
 
 export class SubMenuPipe implements PipeTransform {
-transform(value: string): string {
-    return value.replace(/\s+/g, '-').toLowerCase();
-}
+    transform(value: string): string {
+        return value.replace(/\s+/g, '-').toLowerCase();
+    }
 
 }

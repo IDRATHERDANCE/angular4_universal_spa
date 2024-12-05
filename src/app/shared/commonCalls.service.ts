@@ -1,72 +1,57 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject, TransferState, StateKey } from '@angular/core';
 import { Meta } from '@angular/platform-browser';
-
-import { select } from '@angular-redux/store';
-import { Observable } from 'rxjs/Observable';
-
-import { DataActions } from '../../actions/data-actions';
 import { HttpgetService } from '../shared/httpget.service';
 import { PlatformService } from '../shared/platform.service';
 import { PrepareObj } from '../shared/prepareObjects.service';
 
-import { TransferState } from '../../modules/transfer-state/transfer-state';
 
-
-@Injectable()
+@Injectable({
+    providedIn: 'root'
+})
 
 export class CommonCalls {
 
-    private subscriptionXHR: any; 
+    private subscriptionXHR: any;
 
-constructor(
-    private _httpgetService: HttpgetService, 
-    public actions: DataActions,
-    private _prepObj: PrepareObj,
-    public platform: PlatformService,
-    private _cache: TransferState,
-    private _meta: Meta) {}
+    constructor(
+        @Inject(HttpgetService) private _httpgetService: HttpgetService,
+        private _prepObj: PrepareObj,
+        public platform: PlatformService,
+        private _cache: TransferState
+    ) { }
 
-calls(url, reduxData, callback, seoCallback?) { 
-    
-    if (this.platform.isServer()) {  
-        this.getDataFromService(url, true, undefined, seoCallback); 
-    } else {
-        let resData = this._cache.get(url); 
-            if (resData) { 
-                callback(resData); 
-                this.actions.dataChange(resData, url); 
-            } else {
-                reduxData.subscribe(
-                    response => { 
-                        if (response.length > 0) {
-                            callback(response); 
-                        } else {
-                            this.getDataFromService(url, false, callback);
-                        }
-                });
-            }
+    calls(url: StateKey<string>, callback?: any, seoCallback?: any) {
+        if (!this._cache.hasKey(url)) {
+            this.getDataFromService(url, this.platform.isServer(), callback, seoCallback);
+        } else {
+           const resData = this._cache.get(url, '' as StateKey<string>);
+            if (callback) callback(resData || {});
+        }
     }
-}
 
-setMenu(resData) {
-    const menuArray = resData.map(item => this._prepObj.formateTitle(item));
-        this.actions.menuChange(menuArray);
-        this.actions.menuPresent(true);
-}
+    getMenu(resData: any) {
+        const menuArray = resData.map((item: any) => this._prepObj.formateTitle(item));
+        return menuArray;
+    }
 
-getDataFromService(url, server, callback?, seoCallback?) {
-    this.subscriptionXHR = this._httpgetService.getApiData(url)
-        .subscribe(response => {         
+    sortResponse(url: StateKey<string>, response: any) {
+        return url === 'work' ? response.sort((a: any, b: any) => a.acf.position - b.acf.position) : response;
+    }
+
+    getDataFromService(url: StateKey<string>, server: boolean, callback?: any, seoCallback?: any) {
+        this.subscriptionXHR = this._httpgetService.getApiData(url)
+            .subscribe((response: any) => {
                 if (server) {
-                    this._cache.set(url, response);
-                    seoCallback(response);
+                    const sortedResponse = this.sortResponse(url, response);
+                    this._cache.set(url, sortedResponse);
+                    if (seoCallback) seoCallback(sortedResponse);
+                    if (callback) callback(sortedResponse);
                 } else {
-                    callback(response); 
-                    this.actions.dataChange(response, url); 
+                    if (callback) callback(response);
                 }
                 if (this.subscriptionXHR) this.subscriptionXHR.unsubscribe();
-        });
-}
+            });
+    }
 
 
 }

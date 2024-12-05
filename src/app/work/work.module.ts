@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SharedModule } from '../shared.module';
+import { SharedModule } from '../shared/shared.module';
 
 import { WorkComponent } from './work.component';
 import { ProjectComponent } from '../projects/project.component';
@@ -10,13 +10,14 @@ import { workRoutes } from './work.routing';
 import { SubMenuPipe } from '../shared/subMenu.pipe';
 
 
+
 @NgModule({
   imports: [
     CommonModule,
     SharedModule,
     workRoutes
   ],
-  declarations: [ 
+  declarations: [
     WorkComponent,
     ProjectComponent,
     OrientationDirective,
@@ -24,4 +25,4 @@ import { SubMenuPipe } from '../shared/subMenu.pipe';
     SubMenuPipe
   ]
 })
-export class WorkModule {}
+export class WorkModule { }

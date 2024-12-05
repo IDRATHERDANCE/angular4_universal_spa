@@ -9,6 +9,6 @@ import { aboutRoutes } from './about.routing';
     CommonModule,
     aboutRoutes
   ],
-  declarations: [ AboutComponent ]
+  declarations: [AboutComponent]
 })
-export class AboutModule {}
+export class AboutModule { }
