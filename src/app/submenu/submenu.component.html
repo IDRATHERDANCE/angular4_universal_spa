@@ -1,3 +1,4 @@
 <div class="sub_menu">
-    <li class="sub_li" *ngFor="let item of menuData" ><a class="sub_a" [routerLink]="['work/' + item]">{{item | subMenuPretty}}</a></li>
+    <li class="sub_li" *ngFor="let item of menuData"><a class="sub_a" [routerLink]="['work', item]">{{item |
+            subMenuPretty}}</a></li>
 </div>

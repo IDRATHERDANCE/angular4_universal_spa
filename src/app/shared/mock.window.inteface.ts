@@ -5,20 +5,25 @@ export interface InterfaceMockWindow {
     elClHeight: number,
     defaultUrl: string,
     defaultKeywords: string
-    
-};
+
+}
+
+export interface IWindowColumns {
+    window: windowInt,
+    elClHeight: number
+}
 
 
-interface imageObj {
+export interface imageObj {
     naturalWidth: number,
     naturalHeight: number
-};
+}
 
-interface textBoxObj {
+export interface textBoxObj {
     clientHeight: number
 }
 
-interface windowInt {
+export interface windowInt {
     innerWidth: number,
     innerHeight: number
 }

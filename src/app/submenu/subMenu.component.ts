@@ -1,15 +1,19 @@
 import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
+import { Router } from '@angular/router';
 
-    @Component({
-        selector: 'submenu',
-        styleUrls: ['./submenu.component.scss'],
-        templateUrl: './submenu.component.html',
-        changeDetection: ChangeDetectionStrategy.OnPush
-    })
+@Component({
+    selector: 'submenu',
+    styleUrls: ['./submenu.component.scss'],
+    templateUrl: './submenu.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush
+})
 
 export class SubMenuComponent {
 
-    @Input() isItWork: Boolean;
-    @Input() menuData: Array<string>; 
+    @Input() menuData: Array<string> = [];
 
+    constructor(private router: Router) {
+        this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+
+    }
 }

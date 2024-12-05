@@ -1,11 +1,13 @@
 import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
 import { isPlatformServer } from '@angular/common';
 
-@Injectable()
+@Injectable({
+    providedIn: 'root'
+})
 
 export class PlatformService {
 
-constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
+    constructor(@Inject(PLATFORM_ID) private platformId: any) { }
 
     isServer() {
         return isPlatformServer(this.platformId);

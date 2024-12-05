@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SharedModule } from '../shared.module';
+import { SharedModule } from '../shared/shared.module';
 
 import { PressComponent } from './press.component';
 
@@ -12,6 +12,6 @@ import { pressRoutes } from './press.routing';
     SharedModule,
     pressRoutes
   ],
-  declarations: [ PressComponent ]
+  declarations: [PressComponent]
 })
-export class PressModule {}
+export class PressModule { }

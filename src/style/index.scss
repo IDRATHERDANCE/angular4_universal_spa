@@ -4,27 +4,28 @@
 @include global-reset;
 
 
-html { 
-    width: 100%; 
-    overflow-x:hidden; 
+html {
+    width: 100%;
+    overflow-x: hidden;
     font-size: 62.5%;
 }
 
-body { 
-    font-family:helvetica; 
-    width: 100%; 
+body {
+    font-family: helvetica;
+    width: 100%;
     overflow-x: hidden;
 }
 
-img, iframe { 
-    border: none; 
+img,
+iframe {
+    border: none;
     width: 100%;
     display: block;
 }
 
-iframe { 
-    position:relative; 
-    z-index:1000; 
+iframe {
+    position: relative;
+    z-index: 1000;
 }
 
 
@@ -34,37 +35,46 @@ iframe {
     background: transparent;
 }
 
- ::-webkit-scrollbar-thumb {
-     background: #393812;
-     -webkit-border-radius: .1rem;
-     -webkit-box-shadow: 0 .1rem .2rem rgba(0, 0, 0, 0.75);
- }
+::-webkit-scrollbar-thumb {
+    background: #393812;
+    -webkit-border-radius: .1rem;
+    -webkit-box-shadow: 0 .1rem .2rem rgba(0, 0, 0, 0.75);
+}
 
- ::-webkit-scrollbar-corner {
-     background: #000;
- }
+::-webkit-scrollbar-corner {
+    background: #000;
+}
 
-a { 
-    text-decoration:none;
-    color: #7b7c7e; 
-    font-family:helvetica;
-    font-size: 1.44rem; 
+a {
+    text-decoration: none;
+    color: #7b7c7e;
+    font-family: helvetica;
+    font-size: 1.44rem;
     word-wrap: break-word;
-} 
+}
 
-a:active,a:hover, a:visited{ outline:0 }
+a:active,
+a:hover,
+a:visited {
+    outline: 0
+}
 
-p, p li, p a, span, li  { 
-    font-family:verdana;
-    font-size:1.2rem;
-    color:#adb0b5;
+p,
+p li,
+p a,
+span,
+li {
+    font-family: verdana;
+    font-size: 1.2rem;
+    color: #adb0b5;
     line-height: 130%;
 }
 
-h1, h2 {
-    font-family:verdana;
-    font-size:1.2rem;
-    color:#adb0b5;
+h1,
+h2 {
+    font-family: verdana;
+    font-size: 1.2rem;
+    color: #adb0b5;
 }
 
 h3 p {
@@ -74,41 +84,102 @@ h3 p {
 }
 
 @-moz-document url-prefix() {
-    html{
-        overflow-y:scroll;
-        height:100%;
+    html {
+        overflow-y: scroll;
+        height: 100%;
     }
 }
 
 .content {
-    position: absolute; 
-    width: 100%; 
+    position: absolute;
+    width: 100%;
     padding: 0 2.5%;
     margin-bottom: 4rem;
     background: transparent;
     min-width: 35rem;
     top: 9.1rem;
-        
-        @media only screen and (min-width:370px) { 
-            @include calc(top, '7.734015345268542vw + 6.42rem');
-        }    
-        
-        @media only screen and (min-width:736px) { 
-            top:0; 
-            margin-top:5rem;
-            left:16.5%;
-            height:100%;
-            width:82.2%;
-            padding: 0;
-            margin-left: 3.08rem;
-            max-width: 120rem;
-            z-index:1;    
-            min-width: initial;
-        } 
+
+    @media only screen and (min-width:370px) {
+        @include calc(top, '7.734015345268542vw + 6.42rem');
+    }
+
+    @media only screen and (min-width:736px) {
+        top: 0;
+        margin-top: 5rem;
+        left: 16.5%;
+        height: 100%;
+        width: 82.2%;
+        padding: 0;
+        margin-left: 3.08rem;
+        max-width: 120rem;
+        z-index: 1;
+        min-width: initial;
+    }
 }
 
 .contentFix {
     position: fixed;
 }
 
-.news_pop_text_main h1 { margin-bottom: .156rem; }
+.news_pop_text_main h1 {
+    margin-bottom: .156rem;
+}
+
+.arrow {
+    overflow: visible;
+    background: transparent;
+    border: 0;
+    -webkit-appearance: none;
+    display: inline-block;
+    outline: none;
+    padding: 0;
+    z-index: 1045;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    position: fixed;
+    top: 50%;
+    vertical-align: top;
+    opacity: 0.65;
+    filter: alpha(opacity=65);
+    margin: 0;
+
+    padding: 0;
+    -webkit-tap-highlight-color: transparent;
+    opacity: 0.3;
+    padding-top: 0;
+    width: 1.3rem;
+    height: 2.7rem;
+
+    @media only screen and (min-width:736px) {
+        padding-top: 2%;
+        width: 1.3%;
+        height: auto;
+    }
+
+}
+
+.arrow:hover,
+.arrowHover {
+    opacity: 0.65;
+}
+
+
+.arrowLeft {
+    background: url('../public/left.png') 0 0 / contain no-repeat;
+    left: .3rem;
+
+    @media only screen and (min-width:736px) {
+        left: 1rem;
+        cursor: w-resize;
+    }
+}
+
+.arrowRight {
+    background: url('../public/right.png') 0 0 / contain no-repeat;
+    right: .3rem;
+
+    @media only screen and (min-width:736px) {
+        right: 1rem;
+        cursor: e-resize;
+    }
+}

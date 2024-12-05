@@ -1,38 +1,37 @@
-<div class="spinner" *ngIf="!data && !platform.isServer()" style="position: fixed; top: 50%; left: 50%; width: 20px; height: 20px; margin-top: -10px; margin-left: -10px;"><img style="width: 100%;" src="img/spinner.gif" alt="loading"/></div>    
-    <div class="content" [ngClass]="{'contentFix': !!htmlObject}">
-        <div class="news_wrap">    
-            <div *ngFor= "let item of data; let i = index" class="news" (click)='popUpActivate(i)' [ngClass]="{'firstNews': i === 0}">
-            
-                 <div class="news_image" [ngClass]="{'longText': down, 'newsImageFirst': i === 0}">
-                     <div class="aspect">
-                        <img alt="{{item.acf.news_photo.caption}}" [src]="item.acf.news_photo.url" /> 
-                    </div>
-                 </div>
-                <div *ngIf="i === 0" class="newsTextWrap" [ngClass]="{'downNonPop': down}">
-                    <div  class="news_pop_text_main">
-                        <h1 class="newsh1" [ngClass]="{'firstH1': i === 0}">{{item.title}}</h1>
-                        <h2>{{item.acf.news_short_description}}</h2>
-                        <p *ngIf="!!item.content"  [innerHTML]="item.content"></p>
-                    </div>
+<div class="spinner" *ngIf="!data && !platform.isServer()"
+    style="position: fixed; top: 50%; left: 50%; width: 20px; height: 20px; margin-top: -10px; margin-left: -10px;"><img
+        style="width: 100%;" src="../public/spinner.gif" alt="loading" /></div>
+<div class="content" [ngClass]="{'contentFix': !!htmlObject}">
+    <div class="news_wrap">
+        <div *ngFor="let item of data; let i = index" class="news" (click)='popUpActivate(i)'
+            [ngClass]="{'firstNews': i === 0}">
+
+            <div class="news_image" [ngClass]="{'longText': down, 'newsImageFirst': i === 0}">
+                <div class="aspect">
+                    <img alt="{{item.acf.news_photo.caption}}" [src]="item.acf.news_photo.url" />
                 </div>
-               
-                <div *ngIf="i === 0" class="newsTextWrap  notVisibleNonPop" columns [coulmnsData]="coulmnsData" (columsClasses)="columsClasses($event)" [ngClass]="{'down': down}">
-                    <div  class="news_pop_text_main">
-                        <h1 class="newsh1"  [ngClass]="{'firstH1': i === 0}">{{item.title}}</h1>
-                        <h2>{{item.acf.news_short_description}}</h2>
-                        <p *ngIf="!!item.content"  [innerHTML]='item.content | StyleRemove'></p>
-                    </div>
+            </div>
+            <div *ngIf="i === 0" class="newsTextWrap" [ngClass]="{'downNonPop': down}">
+                <div class="news_pop_text_main">
+                    <h1 class="newsh1" [ngClass]="{'firstH1': i === 0}">{{item.title}}</h1>
+                    <h2>{{item.acf.news_short_description}}</h2>
+                    <p *ngIf="!!item.content" [innerHTML]="item.content"></p>
                 </div>
+            </div>
 
-                <h1 class="newsSmallTitle" *ngIf="i > 0">{{item.title.slice(0, 20)}}</h1>
+            <div *ngIf="i === 0" class="newsTextWrap  notVisibleNonPop" columns [coulmnsData]="coulmnsData"
+                (columsClasses)="columsClasses($event)" [ngClass]="{'down': down}">
+                <div class="news_pop_text_main">
+                    <h1 class="newsh1" [ngClass]="{'firstH1': i === 0}">{{item.title}}</h1>
+                    <h2>{{item.acf.news_short_description}}</h2>
+                    <p *ngIf="!!item.content" [innerHTML]='item.content | StyleRemove'></p>
+                </div>
+            </div>
 
-            </div>    
-        </div>        
-    </div>   
+            <h1 class="newsSmallTitle" *ngIf="i > 0">{{item.title.slice(0, 20)}}</h1>
 
-<pop-up-init (onPopOff)="onPopOff($event)" *ngIf="htmlObject" [contentObject]="htmlObject"></pop-up-init>
+        </div>
+    </div>
+</div>
 
-
-
-
-
+<pop-up-init (onPopOff)="onPopOff()" *ngIf="htmlObject" [contentObject]="htmlObject"></pop-up-init>
