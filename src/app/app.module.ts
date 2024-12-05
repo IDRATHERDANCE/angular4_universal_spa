@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
-
+import { RouterOutlet, RouterLink, Router } from '@angular/router';
 
 import { AppComponent } from './app.component';
 
@@ -35,13 +35,13 @@ import { SubMenuPrettyPipe } from './shared/submenuPretty.pipe';
     HttpModule,
     NgReduxModule,
     RouterModule.forRoot([
-      { path: '', loadChildren: './splash/splash.module#SplashModule'},
-      { path: 'work', loadChildren: './work/work.module#WorkModule'},
-      { path: 'news', loadChildren: './news/news.module#NewsModule'},
-      { path: 'press', loadChildren: './press/press.module#PressModule'},
-      { path: 'exhibitions', loadChildren: './exhibitions/exhibitions.module#ExhibitionsModule'},
-      { path: 'about', loadChildren: './about/about.module#AboutModule'},
-      { path: 'contact', loadChildren: './contact/contact.module#ContactModule'}
+      { path: '', loadChildren: './splash/splash.module#SplashModule' },
+      { path: 'work', loadChildren: './work/work.module#WorkModule' },
+      { path: 'news', loadChildren: './news/news.module#NewsModule' },
+      { path: 'press', loadChildren: './press/press.module#PressModule' },
+      { path: 'exhibitions', loadChildren: './exhibitions/exhibitions.module#ExhibitionsModule' },
+      { path: 'about', loadChildren: './about/about.module#AboutModule' },
+      { path: 'contact', loadChildren: './contact/contact.module#ContactModule' }
     ])
   ],
   declarations: [
@@ -69,6 +69,6 @@ import { SubMenuPrettyPipe } from './shared/submenuPretty.pipe';
     CssClassesHelper,
     { provide: MOCK_WINDOW, useValue: MockWindow }
   ],
-  exports: [ AppComponent ]
+  exports: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }

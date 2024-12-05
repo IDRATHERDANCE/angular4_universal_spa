@@ -1,5 +1,5 @@
 const { root } = require('./helpers');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
+// const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const webpack = require('webpack');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
@@ -17,24 +17,24 @@ module.exports = {
   },
   module: {
     rules: [
-      { test: /\.ts$/, loader: '@ngtools/webpack'},
+      { test: /\.ts$/, loader: '@ngtools/webpack' },
       { test: /\.html$/, loader: 'raw-loader' },
-      {test: /\.css$/, include: root('src/app'), loader: 'raw-loader!postcss-loader'},
+      { test: /\.css$/, include: root('src/app'), loader: 'raw-loader!postcss-loader' },
       {
         test: /\.(scss|sass)$/,
         exclude: root('src/app'),
-        loader: ExtractTextPlugin.extract({ fallback: 'style-loader', use: ['css-loader', 'postcss-loader', 'sass-loader']})
+        loader: ExtractTextPlugin.extract({ fallback: 'style-loader', use: ['css-loader', 'postcss-loader', 'sass-loader'] })
       },
-      {test: /\.(scss|sass)$/, exclude: root('src/style'), loader: 'raw-loader!postcss-loader!sass-loader'}
+      { test: /\.(scss|sass)$/, exclude: root('src/style'), loader: 'raw-loader!postcss-loader!sass-loader' }
     ]
   },
   plugins: [
-    new CopyWebpackPlugin({
-      patterns: [
-        { from: 'src/public', to: 'dist' }
-      ],
-    }),
-    new ExtractTextPlugin({filename: 'css/[name].[hash].css'}),
+    // new CopyWebpackPlugin({
+    //   patterns: [
+    //     { from: 'src/public', to: 'dist' }
+    //   ],
+    // }),
+    new ExtractTextPlugin({ filename: 'css/[name].[hash].css' }),
     // new OptimizeCssAssetsPlugin({
     //   assetNameRegExp: /\.optimize\.css$/g,
     //   cssProcessor: require('cssnano'),
@@ -43,6 +43,6 @@ module.exports = {
     //   },
     //   canPrint: true
     // }),
-    new webpack.optimize.UglifyJsPlugin({sourceMap: false, mangle: { keep_fnames: true }, output: {comments: false}})
+    new webpack.optimize.UglifyJsPlugin({ sourceMap: false, mangle: { keep_fnames: true }, output: { comments: false } })
   ]
 };
