@@ -2,7 +2,7 @@ import {
     Component, Input, EventEmitter, Output, OnChanges,
     HostListener, ChangeDetectionStrategy,
     ChangeDetectorRef,
-    ViewChild, Renderer2, OnInit, OnDestroy, Inject, ElementRef,
+    ViewChild, Renderer2, Inject, ElementRef,
     AfterViewInit
 } from '@angular/core';
 import { Location, DOCUMENT } from '@angular/common';
@@ -26,7 +26,7 @@ import { fadeIn } from '../shared/fadeIn.animation';
     host: { ngSkipHydration: 'true' },
 })
 
-export class PopUpInitComponent implements OnChanges, OnInit, OnDestroy, AfterViewInit {
+export class PopUpInitComponent implements OnChanges, AfterViewInit {
 
     @Input() contentObject: any;
     @Output() onPopOff = new EventEmitter<boolean>();
@@ -38,29 +38,29 @@ export class PopUpInitComponent implements OnChanges, OnInit, OnDestroy, AfterVi
     }
 
 
-    private counter: number = 0;
-    private isItTooTall: Boolean = false;
-    private port: Boolean = false;
-    private isPortWider: Boolean = false;
-    private widerNews: Boolean = false;
-    private down: Boolean = false;
-    private hasPosition: Boolean = false;
-    private wider: Boolean = false;
+    private counter = 0;
+    private isItTooTall = false;
+    private port = false;
+    private isPortWider = false;
+    private widerNews = false;
+    private down = false;
+    private hasPosition = false;
+    private wider = false;
     public currentIfame: any;
     public coulmnsData: Object = {};
     public currentPhoto: any;
-    private isItNews: Boolean = false;
-    public newsText: string = '';
-    public text: string = '';
-    public arrowHover: boolean = false;
-    private _page: string = '';
-    private _imgLoad: boolean = false;
-    private _tooTallFlag: boolean = false;
-    public wrapPos: boolean = false;
-    private _iframeAndDown: boolean = false;
+    private isItNews = false;
+    public newsText = '';
+    public text = '';
+    public arrowHover = false;
+    private _page = '';
+    private _imgLoad = false;
+    private _tooTallFlag = false;
+    public wrapPos = false;
+    private _iframeAndDown = false;
     private _window: Window;
-    public alt: string = '';
-    public viewInit: boolean = false;
+    public alt = '';
+    public viewInit = false;
 
     @HostListener('window:keydown', ['$event']) onKeyDown(event: any) {
 
@@ -112,18 +112,9 @@ export class PopUpInitComponent implements OnChanges, OnInit, OnDestroy, AfterVi
         this.checkWhichPage(0);
     }
 
-    ngOnInit() {
-
-        // this.dispatch(popUp({ data: true }));
-    }
-
     ngAfterViewInit() {
         this.viewInit = true;
         // this.dispatch(popUp({ data: true }));
-    }
-
-    ngOnDestroy() {
-        // this.dispatch(popUp({ data: false }));
     }
 
     checkWhichPage(dir: any) {

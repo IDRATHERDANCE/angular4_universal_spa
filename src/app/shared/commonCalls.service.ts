@@ -43,7 +43,13 @@ export class CommonCalls {
             .subscribe((response: any) => {
                 if (server) {
                     const sortedResponse = this.sortResponse(url, response);
-                    this._cache.set(url, sortedResponse);
+                    try {
+                        const uselessKey = Object.keys(JSON.parse(this._cache.toJson()))[0];
+                        this._cache.remove(uselessKey as StateKey<string>)
+                    } catch(e) {
+                        console.log(e);
+                    }
+                    if (!this._cache.hasKey(url)) this._cache.set(url, sortedResponse);
                     if (seoCallback) seoCallback(sortedResponse);
                     if (callback) callback(sortedResponse);
                 } else {
