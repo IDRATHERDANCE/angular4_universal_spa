@@ -107,14 +107,12 @@ export class PopUpInitComponent implements OnChanges, AfterViewInit {
     }
 
     ngOnChanges() {
-
         this.counter = this.contentObject.itemClicked;
         this.checkWhichPage(0);
     }
 
     ngAfterViewInit() {
         this.viewInit = true;
-        // this.dispatch(popUp({ data: true }));
     }
 
     checkWhichPage(dir: any) {
