@@ -99,9 +99,6 @@ export class PopUpInitComponent implements OnChanges, AfterViewInit {
         @Inject(DOCUMENT) private document: Document,
         @Inject(MOCK_WINDOW) private _w: InterfaceMockWindow,
         public platform: PlatformService,
-        // private _meta: Meta,
-        // private _format: PrepareMeta,
-        // private _metaService: MetaService
     ) {
         this._window = this.platform.isServer() ? this._w.window : <any>this.document.defaultView;
     }

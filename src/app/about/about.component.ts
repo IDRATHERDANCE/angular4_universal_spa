@@ -4,9 +4,6 @@ import {
     ChangeDetectorRef, StateKey
 } from '@angular/core';
 
-// import { select } from '@angular-redux/store';
-// import { Observable } from 'rxjs/Observable';
-
 import { routerAnimation } from '../shared/router.animations';
 import { CommonCalls } from '../shared/commonCalls.service';
 import { PlatformService } from '../shared/platform.service';
@@ -23,9 +20,6 @@ import { HeadMetaInterface } from '../shared/headMeta.interface';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AboutComponent implements OnInit, AfterViewInit {
-
-    // @select(['applicationData', 'routeData', 'about']) aboutData$: Observable<any>;
-
     public pageContent: any;
     public aboutPhoto: any;
     public columnRight: any;
@@ -67,8 +61,8 @@ export class AboutComponent implements OnInit, AfterViewInit {
     }
 
     createSeoHeader(seoResponse: any) {
-        const resObj = this.formatResponse(seoResponse),
-            metaObj: HeadMetaInterface = {
+        const resObj = this.formatResponse(seoResponse);
+        const metaObj: HeadMetaInterface = {
                 title: 'Ana Rajecvic - About',
                 description: resObj.content,
                 image: resObj.photo,

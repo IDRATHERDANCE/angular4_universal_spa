@@ -1,6 +1,5 @@
 import { Injectable, Inject } from '@angular/core';
 import { Meta } from '@angular/platform-browser';
-// import { DOCUMENT } from '@angular/platform-browser';
 import { MOCK_WINDOW } from './mock.window';
 import { InterfaceMockWindow } from "./mock.window.inteface";
 import { PrepareMeta } from './prepare.meta.service';
@@ -14,7 +13,6 @@ export class MetaService {
 
     constructor(
         private _meta: Meta,
-        // @Inject(DOCUMENT) private _document,
         @Inject(MOCK_WINDOW) private _static: InterfaceMockWindow,
         @Inject(PrepareMeta) private _format: PrepareMeta,
     ) { }

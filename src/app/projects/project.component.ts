@@ -2,9 +2,7 @@ import {
     StateKey,
     Component,
     OnInit,
-    ViewContainerRef,
     ViewChild,
-    ViewChildren,
     Renderer2,
     AfterViewInit,
     ChangeDetectionStrategy,
@@ -12,8 +10,6 @@ import {
     ElementRef
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-// import { Meta } from '@angular/platform-browser';
-
 
 import { routerAnimation } from '../shared/router.animations';
 import { PrepareObj } from '../shared/prepareObjects.service';

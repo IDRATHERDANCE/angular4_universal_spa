@@ -1,13 +1,9 @@
 import {
-    Component, OnInit, OnDestroy, Renderer2, AfterViewInit,
-    ViewChild, ViewContainerRef,
+    Component, OnInit, Renderer2, AfterViewInit,
     ChangeDetectionStrategy, ChangeDetectorRef,
     StateKey, HostListener
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-
-// import { select } from '@angular-redux/store';
-// import { Observable } from 'rxjs/Observable';
 
 import { routerAnimation } from '../shared/router.animations';
 import { ResizeWindow } from '../shared/resize.service';
@@ -72,7 +68,6 @@ export class ExhibitionsComponent implements OnInit, AfterViewInit {
         this._changeDetectorRef.markForCheck();
         this.response = response;
         this.lookForResize(response);
-        // this._resizeWindow.winResize(lookForResize);
         this.wholeContent = this._prepObj.prepObj(response, 'exhibition');
         if (this._routeSegment !== undefined) {
             this.popUpActivateByRoute(response, this._routeSegment);

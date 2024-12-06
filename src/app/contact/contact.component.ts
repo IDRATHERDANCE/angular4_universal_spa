@@ -6,9 +6,6 @@ import {
 
 import { TopService } from '../shared/top.service';
 
-// import { select } from '@angular-redux/store';
-// import { Observable } from 'rxjs/Observable';
-
 import { routerAnimation } from '../shared/router.animations';
 import { CommonCalls } from '../shared/commonCalls.service';
 import { PlatformService } from '../shared/platform.service';
@@ -26,9 +23,6 @@ import { PrepareMeta } from '../shared/prepare.meta.service';
 })
 
 export class ContactComponent implements OnInit, AfterViewInit {
-
-    // @select(['applicationData', 'routeData', 'contact']) contactData$: Observable<any>;
-
     public data: any[] = [];
     private _url: StateKey<string> = 'contact' as StateKey<string>;
 

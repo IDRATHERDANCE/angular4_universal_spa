@@ -4,8 +4,6 @@ import {
     StateKey, HostListener
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-// import { select } from '@angular-redux/store';
-// import { Observable } from 'rxjs/Observable';
 
 import { routerAnimation } from '../shared/router.animations';
 import { ResizeWindow } from '../shared/resize.service';
@@ -28,9 +26,6 @@ import { HeadMetaInterface } from '../shared/headMeta.interface';
 
 
 export class NewsComponent implements OnInit, AfterViewInit {
-
-    // @select(['applicationData', 'routeData', 'news']) newsData$: Observable<any>;
-
     public data: any[] = [];
     public wholeContent: any = {};
     public response: any = {};

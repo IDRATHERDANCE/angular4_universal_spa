@@ -4,9 +4,6 @@ import {
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-// import { select } from '@angular-redux/store';
-// import { Observable } from 'rxjs/Observable';
-
 import { routerAnimation } from '../shared/router.animations';
 import { ResizeWindow } from '../shared/resize.service';
 import { PrepareObj } from '../shared/prepareObjects.service';
@@ -26,15 +23,11 @@ import { HeadMetaInterface } from '../shared/headMeta.interface';
 })
 
 export class PressComponent implements OnInit, AfterViewInit {
-
-    //   @select(['applicationData', 'routeData', 'press']) pressData$: Observable<any>;
-
-
     public data: any[] = [];
-    private wholeContent: Object = {};
+    private wholeContent: any = {};
     public htmlObject: any = null;
     private subscriptionRoute: any;
-    private _routeSegment: string = '';
+    private _routeSegment = '';
     private _url: StateKey<string> = 'press' as StateKey<string>;
 
     constructor(
@@ -67,7 +60,6 @@ export class PressComponent implements OnInit, AfterViewInit {
             this.data = this._resizeWindow.dataTrimmed(response)
         });
         lookForResize();
-        // this._resizeWindow.winResize(lookForResize);
         this.wholeContent = this._prepObj.prepObj(response, 'press');
         if (this._routeSegment !== undefined) {
             this.popUpActivateByRoute(response, this._routeSegment);

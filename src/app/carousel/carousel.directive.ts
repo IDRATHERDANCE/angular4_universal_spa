@@ -1,13 +1,10 @@
-import { NgClass, NgFor, NgStyle } from '@angular/common';
 import { Component, Input, EventEmitter, Output, OnChanges, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
     selector: 'carousel-directive',
     templateUrl: './carousel.directive.html',
     styleUrls: ['./carousel.directive.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    // standalone: true,
-    // imports: [NgStyle, NgFor, NgClass]
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 
 export class CarouselComponent implements OnChanges {
@@ -16,11 +13,11 @@ export class CarouselComponent implements OnChanges {
     @Output() whichPhoto = new EventEmitter<number>();
 
     public carousel: any = {};
-    private _counter: number = 0;
-    public translateCarousel: string = '';
-    public noMorePhotosLeft: boolean = true;
-    public noMorePhotosRight: boolean = true;
-    private _carouselLength: number = 0;
+    private _counter = 0;
+    public translateCarousel = '';
+    public noMorePhotosLeft = true;
+    public noMorePhotosRight = true;
+    private _carouselLength = 0;
 
     constructor() { }
 
@@ -49,8 +46,8 @@ export class CarouselComponent implements OnChanges {
 
     moveCarousel(_counter: any) {
 
-        let multiplyer = 1,
-            length: any = this._carouselLength;
+        let multiplyer = 1;
+        const length: any = this._carouselLength;
         if (length === 5) {
             multiplyer = 1;
             if (_counter === 0) {
